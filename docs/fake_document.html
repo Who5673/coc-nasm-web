@@ -108,7 +108,8 @@ SOFTWARE.
         <h2 class="fakedefault">Establishment for Netwide Assembler language</h1>
         <p style="font-style: italic;" class="fakedefault">Due to the high difficulty of installing this thing on Windows and MacOS, I will tell you how to do it on those platform later</p>
         <h3 class="fakedefault">Install Netwide Assembler compiler:</h3>
-        <h4 class="fakedefault">On Linux:</h4>
+        <h4 class="fakedefault">On Linux, Windows Subsystem for Linux or <code>msys2</code>:</h4>
+        <h5 class="fakedefault">For Ubuntu, Debian, Kali, Mint,...(Debian-based):</h5>
         <p class="fakedefault">Update <code>apt</code>, then install <code>nasm</code> compiler:</p>
       </section>
 
@@ -118,9 +119,31 @@ SOFTWARE.
           <p class="c2"><img src="clipboard.svg" alt="" class="copy-btn"> Copy</p>
         </div>
         <pre><code class="codeblock">
-sudo apt install nasm --yes</code></pre>
+sudo apt update && sudo apt install nasm</code></pre>
       </section>
 
+
+      <h5 class="fakedefault">For MSYS2, Arch Linux or Linux distro that uses pacman-package-manager (Arch-based):</h5>
+      <p class="fakedefault">Update <code>pacman</code>, then install <code>nasm</code> compiler:</p>
+      <p class="c3">sh Shell</p>
+      <section class="nvimcodeinstallation">
+        <div class="c">
+          <p class="c2"><img src="clipboard.svg" alt="" class="copy-btn"> Copy</p>
+        </div>
+        <pre><code class="codeblock">
+sudo pacman -Syu && sudo pacman --sync nasm</code></pre>
+      </section>
+
+       <h5 class="fakedefault">For Red Hat Linux or the Linux distro that uses <code>yum</code> package manager (RPM-based):</h5>
+      <p class="fakedefault">Update <code>yum</code>, then install <code>nasm</code> compiler:</p>
+      <p class="c3">sh Shell</p>
+      <section class="nvimcodeinstallation">
+        <div class="c">
+          <p class="c2"><img src="clipboard.svg" alt="" class="copy-btn"> Copy</p>
+        </div>
+        <pre><code class="codeblock">
+sudo yum -y update && sudo yum install nasm</code></pre>
+      </section>     
       <h3 class="fakedefault">Set up a new Intergrated Develop Environment in order to take down Netwide Assembler script easier</h3>
       <p id="fakedefault">In </p>
       <p class="nviminstallationpassage" id="thentype">Then type:</p>
@@ -147,23 +170,30 @@ printHello
           <p class="c2"><img src="clipboard.svg" alt="" class="copy-btn"> Copy</p>
         </div>
         <pre><code class="codeblock">
+%macro exit 1
+  mov rax, 60
+  mov rdi, %1
+  syscall
+%endmacro
+
+%macro getstr 2
+  mov rax, 1
+  mov rdi, 1
+  mov rsi, %1
+  mov rdx, %2
+  syscall
+%endmacro
+
 section .data
-  msg db "Hello world", 0xA
-  len equ $-msg
+  example db 0x1b, "[1;38;2;255;165;0m", "Hello world", 0x1b, "[0m", 0xA
+  length equ $-example
 
 section .text
   global _start
 
 _start:
-  mov rax, 1
-  mov rdi, 1
-  mov rsi, msg
-  mov rdx, len
-  syscall
-
-  mov rax, 60
-  mov rdi, |       ; Your cursor is |
-  syscall
+  getstr example, length
+  exit 0
 </code></pre>
       </section>
       <p class="nviminstallationpassage">Then use <code>nasm</code> to compile your Netwide Assembler file:</p>
