@@ -1,0 +1,209 @@
+<!--
+Copyright (c) 2025 who5673. All rights served.
+
+The MIT License
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <!--link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='bridge.js') }}"></script>
+    <script src="{{ url_for('static', filename='frontend.js') }}"></script-->
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="coc-nasm-favison.svg" sizes="48x48">
+
+    <!--Highlighters-->
+    <link rel="stylesheet" href="highlighters/luahighlight/styles/github-dark.min.css">
+    <link rel="stylesheet" href="highlighters/x86asmhighlighters/styles/github-dark.min.css">
+
+    <!--WebAssembly emcc-->
+    <script src="bridge.js"></script>
+
+    <!--link rel="shortcut icon" href="favicon.ico" type="image/x-icon"-->
+    <title>Fake document page</title>
+  </head>
+  <body id="bodie">
+    <header>
+      <div id="menubox">
+        <nav>
+          <ul>
+            <li><button id="light">Change background</button></li>
+            <br>
+            <li><a href="index.html"><img src="coc-nasm-favison.svg" /></a></li>
+            <li><a href="installation_for_vscode.html">Installation (VSCode)</a></li>
+            <li><a href="installation_for_coc.html">Installation (CoC)</a></li>
+            <li><a href="installation_for_nvim.html">Installation (nvim plugins)</a></li>
+            <li><a href="snippets.html">Snippets</a></li>
+            <li><a href="completions.html">Completions</a></li>
+            <li><a href="see_also.html">See also</a></li>
+          </ul>
+        </nav>
+    </div>
+    </header>
+    <main>
+      <section id="titles">
+        <h1 id="faketitle">Pseudo document</h1>
+        <p style="font-family: Michroma; font-size: 20px;">(The real document is at <a target="_blank" href="https://www.nasm.us/xdoc/2.16.03/html/nasmdoc0.html" style="text-decoration: none; color: cyan;" title="Netwide Assembler main website">https://www.nasm.us/xdoc/2.16.03/html/nasmdoc0.html</a>)</p>
+      </section>
+
+      <section>
+        <h2 class="fakedefault">The definitions of Assembly language, Assemblers and Netwide Assembler</h2>
+        <ul>
+          <li class="fakedefault">
+            Assembly is a set of such much Assemblers that is used to take down the script so that you can
+            control the hardware things in the computer like Central Processing Unit, Remote Access Memory, storage, registers 
+            and a lot more about things in a computer.
+          </li><br>
+          <li class="fakedefault">
+            An Assembler is a low-level language that is used to take down the script in order to compile it into machine code.
+            Therefore, the computer can understand it and execute the script by itself.<br>
+            <b>Please note that the computer cannot understand any languages with the exception for only two numbers: 0 and 1</b><br>
+            Some standout Assemblers for instance:<br>
+            <ul>
+              <li><span style="color: rgb(255, 81, 0); font-weight: 900;">AT&T Syntax</span>: GNU Assembler (GAS), Clang/Low-level Virtual Machine's built-in Assembler...;</li>
+              <li><span style="color: rgb(255, 81, 0); font-weight: 900;">Intel syntax</span>: Microsoft Assembler (MASM), Flat Assembler (FASM),...</li>
+            </ul>
+          </li><br>
+          <li class="fakedefault">
+            <b>Netwide Assembler</b> is an Assembler that use Intel Syntax for taking down the script. It has some features like:
+            <ul>
+              <br>
+              <li class="fakebenefit">Can run on multiple platfroms 📂;</li><br>
+              <li class="fakebenefit">Compile directly into machine code; 💻</li><br>
+              <li class="fakebenefit">Super fast 🚀;</li><br>
+              <li class="fakebenefit">Run natively in the local computer, a good language for programming drivers, bootloaders, and...<i>WebAssembly?</i> (Seriously, I am learning how to build a compiler in order to compile NASM into WASM, even though it has not done yet);</li><br>
+              <li class="fakebenefit">👉 It is an easy Assembler for Newbie to learn, although it has a high difficulty for people to learn;</li><br>
+            </ul>
+          </li><br>
+          <li class="fakedefault">Fun fact: Netwide Assembler is also a Kali Tool. You can check it <a class="fake_a" href="https://www.kali.org/tools/nasm">here</a></li><br>
+        </ul>
+        <p class="fakedefault" style="font-size: 23px; color: rgba(255, 0, 0, 100%);"><b>⚠️ NOTE: It is recommended to learn how to program C language before programming this one,
+          as I might use C syntax in order to perform the Netwide Assembler command for everyone to understand.
+        </b></p>
+      </section>
+
+      <!--Set up Netwide Assembler compiler-->
+      <section id="setup">
+        <h2 class="fakedefault">Establishment for Netwide Assembler language</h1>
+        <p style="font-style: italic;" class="fakedefault">Due to the high difficulty of installing this thing on Windows and MacOS, I will tell you how to do it on those platform later</p>
+        <h3 class="fakedefault">Install Netwide Assembler compiler:</h3>
+        <h4 class="fakedefault">On Linux:</h4>
+        <p class="fakedefault">Update <code>apt</code>, then install <code>nasm</code> compiler:</p>
+      </section>
+
+      <p class="c3">sh Shell</p>
+      <section class="nvimcodeinstallation">
+        <div class="c">
+          <p class="c2"><img src="clipboard.svg" alt="" class="copy-btn"> Copy</p>
+        </div>
+        <pre><code class="codeblock">
+sudo apt install nasm --yes</code></pre>
+      </section>
+
+      <h3 class="fakedefault">Set up a new Intergrated Develop Environment in order to take down Netwide Assembler script easier</h3>
+      <p id="fakedefault">In </p>
+      <p class="nviminstallationpassage" id="thentype">Then type:</p>
+      <p class="c3">Plaintext</p>
+      <section class="nvimcodeinstallation">
+        <div class="c">
+          <p class="c2"><img src="clipboard.svg" alt="" class="copy-btn"> Copy</p>
+        </div>
+        <pre><code class="codeblock">
+printHello
+</code></pre>
+      </section>
+
+      <p class="nviminstallationpassage">
+        or <code>ph, pH,...</code>anything that relates to snippet <code>printHello</code>.</p>
+      <p class="nviminstallationpassage">
+        It should output this script after choosing:
+      </p>
+
+
+      <p class="c3">NASM</p>
+      <section class="nvimcodeinstallation">
+        <div class="c">
+          <p class="c2"><img src="clipboard.svg" alt="" class="copy-btn"> Copy</p>
+        </div>
+        <pre><code class="codeblock">
+section .data
+  msg db "Hello world", 0xA
+  len equ $-msg
+
+section .text
+  global _start
+
+_start:
+  mov rax, 1
+  mov rdi, 1
+  mov rsi, msg
+  mov rdx, len
+  syscall
+
+  mov rax, 60
+  mov rdi, |       ; Your cursor is |
+  syscall
+</code></pre>
+      </section>
+      <p class="nviminstallationpassage">Then use <code>nasm</code> to compile your Netwide Assembler file:</p>
+      <p class="c3">sh Shell</p>
+      <section class="nvimcodeinstallation">
+        <div class="c">
+          <p class="c2"><img src="clipboard.svg" alt="" class="copy-btn"> Copy</p>
+        </div>
+        <pre><code class="codeblock">
+nasm -f elf64 main.nasm -o main.o    # Compile NASM file into an object file using specified format
+ld main.o -o main   # Like the object file to the binary, then make a binary file
+</code></pre>
+      </section>
+      <p class="nviminstallationpassage"><b>Attention:</b> You need to choose right format type in order to make the binary work.</p>
+      <p class="nviminstallationpassage">According to <code>nasm</code> manpage, we have some format like this:</p>
+      <ul class="nviminstallationpassage">
+        <li class="nviminstallationpassage"><b><code>win32</code></b>: For Windows 32-bit</li>
+        <li class="nviminstallationpassage"><b><code>win64</code></b>: For Windows 64-bit</li>
+        <li class="nviminstallationpassage"><b><code>elf32</code></b>: For x86 Linux distros (32-bit)</li>
+        <li class="nviminstallationpassage"><b><code>elf64</code></b>: For x86-64 Linux distros (64-bit)</li>
+      </ul>
+      <!--Frontend-->
+      <script src="frontend.js"></script>
+
+      <!--WebAssembly Binaries from WebAssembly Text and Netwide Assembler-->
+      <script type="module" src="frontend_signed_div.js"></script>
+
+      <!--JS highlighters-->
+      <script src="highlighters/luahighlight/highlight.min.js"></script>
+      <script src="highlighters/bashhighlight/languages/bash.min.js"></script>
+      <script src="highlighters/x86asmhighlighters/languages/x86asm.min.js"></script>
+      <script>hljs.highlightAll();</script>
+    </main>
+    <footer>
+      <section>
+        <hr>
+        <p style="font-family: sans-serif;">Copyright &copy; 2025 July by who5673. All rights served.</p>
+        <h1 style="font-family: sans-serif;">LICENSE</h1>
+        <a style="font-weight: 400; font-family: Arial, Helvetica, sans-serif;" href="../LICENSE">MIT</a>
+      </section>
+    </footer>
+  </body>
+</html>
