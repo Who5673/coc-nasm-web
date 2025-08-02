@@ -109,10 +109,10 @@ return {
           { name = "nasm_instructions" },
         },
         mapping = cmp.mapping.preset.insert({
-          ["<Tab>"] = cmp.mapping.select_next_item(),
-          ["<S-Tab>"] = cmp.mapping.select_prev_item(),
-          ["<CR>"] = cmp.mapping.confirm({ select = true }),
-          ["<C-Space>"] = cmp.mapping.complete(),
+          ["&lt;Tab>"] = cmp.mapping.select_next_item(),
+          ["&lt;S-Tab>"] = cmp.mapping.select_prev_item(),
+          ["&lt;CR>"] = cmp.mapping.confirm({ select = true }),
+          ["&lt;C-Space>"] = cmp.mapping.complete(),
         }),
       })
     end,
