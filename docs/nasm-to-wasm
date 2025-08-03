@@ -410,7 +410,7 @@ def wasm_compile(inputfile, outputfile, exportname):
 if args.version:
     print('\x1b[1;38;2;247;240;15m0.2.11\x1b[0m')
     exit(0)
-if args.input and args.output:
+if args.input and args.output and not args.export_name:
     wasm_compile(f"{args.input}" ,f"{args.output}", "loadWasm")
 if args.input and args.output and args.export_name:
     wasm_compile(f"{args.input}" ,f"{args.output}", f"{args.export_name}")
@@ -433,7 +433,10 @@ elif args.input:
         if (".nasm" not in file2) and (i == -4):
             break
     file = ''.join(file)
-    wasm_compile(f"{file2}", f"{file}.wasm", "loadWasm")
+    if not args.export_name:
+        wasm_compile(f"{file2}", f"{file}.wasm", "loadWasm")
+    elif args.export_name:
+        wasm_compile(f"{file2}", f"{file}.wasm", f"{args.export_name}")
 else:
     print("\x1b[1;35mnasm-to-wasm: \x1b[1;38;2;255;0;0mfatal error: \x1b[1;33mno input files inside -i argument (also no -i argument too)")
     print("\x1b[1;38;2;0;0;255mHint: \x1b[1;38;2;0;255;0mTry to run 'nasm-to-wasm -h' for the instructions\x1b[0m")
