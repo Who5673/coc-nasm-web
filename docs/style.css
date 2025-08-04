@@ -42,12 +42,12 @@ body.light {
 }
 nav {
   position: fixed;
-  width: 310px;
+  width: 335px;
   height: 100vh;
   box-sizing: border-box;
   padding: 20px;
   display: flex;
-  border-left: 5px solid;
+  border-right: 2px solid;
   border-color: white;
   border-radius: 1px;
   overflow-y: auto;
@@ -56,6 +56,9 @@ nav.light{
   border-color: #000000;
 }
 nav ul {
+  padding: 0;
+}
+nav ol {
   padding: 0;
 }
 nav li {
@@ -82,7 +85,7 @@ nav a:active {
 
 /* General home */
 main, footer {
-  margin-left: 310px;
+  margin-left: 350px;
   flex: 1;
   padding: 20px;
 }
