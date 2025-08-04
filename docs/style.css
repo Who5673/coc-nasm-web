@@ -146,7 +146,7 @@ main, footer {
 }
 .getlinknow:hover {
   background-color: yellow;
-  color: black;
+  color: #000000;
 }
 .getlinknow:active {
   background-color: rgb(180, 180, 29);
