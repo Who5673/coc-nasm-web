@@ -64,6 +64,8 @@ SOFTWARE.
             <li><a href="#estab">2. NASM Establishment</a></li>
             <li><a href="#first_nasm_pj">3. Your first NASM script</a></li>
             <li><a href="#disnasm">4. Disassemble a RAW binary file</a></li>
+            <li><h3><span style="color: rgba(255, 165, 0, 98%);">Basic skills about Netwide Assembler for starters</span></h3></li>
+            <li><a href="#asm_def">1. Basic information</a></li>
           </ul>
         </nav>
     </div>
@@ -160,8 +162,8 @@ sudo yum -y update && sudo yum install nasm</code></pre>
           <p class="c2"><img src="clipboard.svg" alt="" class="copy-btn"> Copy</p>
         </div>
         <pre><code class="codeblock">
-nasm -v           # -- It should return "NASM version &lt;version>"
-ndisasm -v        # -- It should return "NDISASM version &lt;version>"</code></pre>
+nasm --version    #     It should output "NASM version &lt;version>"
+ndisasm -v        #  -- It should output "NDISASM version &lt;version>"</code></pre>
       </section> 
 
       <!--Setup IDE-->
@@ -253,7 +255,7 @@ ld main.o -o main   # Link the object file to the binary, then make a binary fil
         <li class="nviminstallationpassage"><b><code>macho64</code></b>: For Mach-O x86_64 MacOS X and variants (64-bit)</li>
         <li class="nviminstallationpassage"><b><code>elf32 (legacy alias: elf)</code></b>: For x86 Linux distros (32-bit)</li>
         <li class="nviminstallationpassage"><b><code>elf64</code></b>: For x86-64 Linux distros (64-bit)</li>
-        <li class="nviminstallationpassage"><b><code>bin</code></b>: For flat <b>RAW</b> binary file</li>
+        <li class="nviminstallationpassage"><b><code>bin</code></b>: For flat <b>RAW</b> binary file. You should not use over 16-bit Netwide Assembler syntax for this type as BIOS real-mode cannot load greater than or equal to 32-bit registers.</li>
       </ul>
       
 
@@ -302,6 +304,35 @@ ndisasm -b 64 main.bin    # You can use -b 16, 32, 64 if you want to use other p
 00000034  4831FF            xor rdi,rdi
 00000037  0F05              syscall
 </code></pre>
+      </section>
+
+      <h2 class="fakedefault">Get started with Netwide Assembler</h2>
+      <p class="fakedefault">
+        Not like mid-level and high-level programming languages, NASM is a low-level one and it is much harder to find
+        documents for learning it. Moreover, before programming this language, you need to know some skills about basic
+        things to deal with the CPU and compiler.<br><br>
+        For more information about the <code>nasm</code> compiler, please <a href="https://www.nasm.us/xdoc/2.16.03/html/nasmdoc2.html#section-2.1" class="attr">go to the real document page</a>.
+      </p>
+      <b class="fakedefault">NOTE AGAIN: I will assume you that you have known how to program C language. Therefore, you need to learn how to take down C script first.<br>
+      However, don't worry if you have learnt many languages with the exeption of C. I also have an <mark>alternative</mark> one. This is the example clipboard that I will use:</b><br><br>
+
+      <!--Example basic clipboard-->
+      <section class="largeclipboard">
+        <div class="clipcontainer" id="languageTabs">
+          <div class="clipbox clipbox1" id="exampleClip" data-lang="cpp">C</div>
+          <div class="clipbox clipbox2" id="exampleRust" data-lang="rust">Rust</div>
+        </div>
+        <section class="nvimcodeinstallation">
+          <p class="c4">Hello</p>
+          <div class="c">
+            <p class="c5"><img src="clipboard.svg" alt="" class="copy-btn"> Copy</p>
+          </div>
+          <pre><code class="language-cpp" id="testme">
+int main(void) {
+  return 0;
+}
+          </code></pre>
+        </section>
       </section>
 
 

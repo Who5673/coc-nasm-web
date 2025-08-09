@@ -63,12 +63,119 @@ Module.onRuntimeInitialized = () => {
 
   /* Get the boxes in Home */
 }
+
+
 /* JavaScript's Copy Clipboard */
 let cpclipbd = document.querySelectorAll(".c2");
-cpclipbd.forEach((btn, idx) => {
+cpclipbd.forEach((btn) => {
   btn.addEventListener("click", () => {
-    const code = document.querySelectorAll(".codeblock")[idx].textContent;
+    const code = document.querySelectorAll(".codeblock").textContent;
     let cpresult = navigator.clipboard.writeText(code);
     cpresult.then(() => window.alert("Copied")).catch(() => alert("Error while copying"));
   });
 });
+let cpclipbdc5 = document.querySelectorAll(".c5");
+cpclipbdc5.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    // This is the element that changes between language-cpp and language-rust
+    const codeElem = document.getElementById("testme");
+    navigator.clipboard.writeText(codeElem.textContent)
+      .then(() => window.alert("Copied"))
+      .catch(() => alert("Error while copying"));
+  });
+});
+
+
+document.cookie = "cliplang=c; path=/; max-age=10000; SameSite=Lax"; /* SameSite=None; Secure */
+
+// Get the cookie
+function getCookie(name) {
+  const cookies = document.cookie.split(";");
+  for (let c of cookies) {
+    const [key, value] = c.trim().split("=");
+    if (key === name) return value;
+  }
+  return null;
+}
+
+// Clipboxes
+function setActiveTab(lang) {
+  const cTab = document.querySelector(".clipbox1");
+  const rTab = document.querySelector(".clipbox2");
+
+  if (lang === "cpp") {
+    cTab.classList.add("show");
+    rTab.classList.remove("show");
+  } else if (lang === "rust") {
+    rTab.classList.add("show");
+    cTab.classList.remove("show");
+  }
+}
+
+// Load C or Rust?
+const loadedLangs = new Set();
+const code = document.getElementById('testme');
+let rawCode = code.textContent;
+const codeSnippets = {
+  cpp: `int main(void) {
+  return 0;
+}`,
+  rust: `use std::process
+
+fn main() {
+  process::exit(0);
+}`
+};
+
+function unhighlightElement(code) {
+  code.classList.forEach(cls => {
+    if (cls.startsWith("language-")) {
+      code.classList.remove(cls);
+    }
+  });
+  // remove attribute "data-highlighted":
+  code.removeAttribute("data-highlighted");
+}
+// Switch and highlight a language
+function switchLanguage(lang) {
+  if (!codeSnippets[lang]) lang = "cpp"; // fallback if invalid
+
+  // Update tab highlight
+  setActiveTab(lang);
+
+  unhighlightElement(code);
+  code.className = `language-${lang}`;
+  code.textContent = codeSnippets[lang];
+
+  const scriptPath = `highlighters/c_rust_highlight/languages/${lang}.min.js`;
+
+  if (loadedLangs.has(lang)) {
+    hljs.highlightElement(code);
+    return;
+  }
+
+  const script = document.createElement('script');
+  script.src = scriptPath;
+  script.onload = function() {
+    loadedLangs.add(lang);
+    hljs.highlightElement(code);
+  };
+  script.onerror = function() {
+    console.error(`Cannot load the script at ${scriptPath}`);
+  };
+  document.body.appendChild(script);
+}
+
+// Load default from cookie on page load
+let langFromCookie = getCookie("cliplang") || "cpp";
+switchLanguage(langFromCookie);
+
+document.querySelectorAll('#languageTabs div').forEach(div => {
+  div.addEventListener('click', function() {
+    const lang = div.dataset.lang;
+    switchLanguage(lang);
+    // Save to the cookie for the next time:
+    document.cookie = `cliplang=${lang}; path=/; max-age=10000; SameSite=Lax`;
+  });
+});
+

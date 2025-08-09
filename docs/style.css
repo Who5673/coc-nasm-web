@@ -172,14 +172,87 @@ main, footer {
   font-family: sans-serif;
   margin-right: 50px;
   width: 80px;
-}
-.c:hover {
-  background-color: hsl(0, 0%, 20%);
+  margin-left: 5px;
+  box-shadow: -5px 7px 5px hsla(0, 0%, 60%, 98%);
 }
 .c:active {
-  background-color: hsl(0, 0%, 10%);
+  animation: push 0.01s ease-in 0s forwards;
+}
+.c2 {
+  border: 1px solid #000000;
+  height: 40px;
+  background-color: white;
+  color: #000000;
+  font-weight: 900;
+}
+.c2:hover {
+  background-color: hsl(0, 0%, 70%);
+}
+.c2:active {
+  color: #ffffff;
+  background-color: rgba(92, 201, 183, 0.192);
 }
 .c3 {
+  font-weight: 900;
+  font-family: sans-serif;
+  color: hsl(0, 0%, 100%);
+  text-align: right;
+  margin-bottom: -45px;
+  font-size: large;
+  margin-right: 10px;
+}
+.codeblock, .language-cpp, .language-rust {
+  font-size: 20px;
+}
+
+/* Clipbox C-Rust */
+.clipcontainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.clipbox {
+  font-family: "RobotoMono";
+  border: 1px solid #000000;
+  text-align: center;
+  float: left;
+  color: #ffffff;
+  font-size: 20px;
+}
+
+/* C or Rust? */
+.c5 {
+  border: 1px solid #000000;
+  height: 40px;
+  background-color: white;
+  color: #000000;
+  font-weight: 900;
+}
+.c5:hover {
+  background-color: hsl(0, 0%, 70%);
+}
+.c5:active {
+  color: #ffffff;
+  background-color: rgba(92, 201, 183, 0.192);
+}
+.clipbox1 {
+  background-color: rgb(36, 109, 36)
+}
+.clipbox1.show {
+  background-color: rgb(54, 80, 54)
+}
+.clipbox2 {
+  background-color: rgb(38, 122, 155);
+}
+.clipbox2.show {
+  background-color: rgb(57, 107, 128);
+}
+
+.largeclipboard {
+  background-color: #0d1117;
+}
+
+/* c4 is diffent from c3. c4 is used to make C and Rust clipboard using JS logic.*/
+.c4 {
   font-weight: 900;
   font-family: sans-serif;
   color: hsl(0, 0%, 100%);
@@ -207,6 +280,10 @@ main, footer {
   text-decoration: none;
   color: blue;
   font-family: sans-serif;
+}
+.attr {
+  color: blue;
+  text-decoration: none;
 }
 /* Animations and other things */
 @keyframes Three_Dimentional_Spin {
