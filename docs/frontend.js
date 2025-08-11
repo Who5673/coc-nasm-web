@@ -86,17 +86,7 @@ cpclipbdc5.forEach((btn) => {
 });
 
 
-document.cookie = "cliplang=c; path=/; max-age=10000; SameSite=None; Secure"; /* SameSite=None; Secure or SameSite=Lax */
-
-// Get the cookie
-function getCookie(name) {
-  const cookies = document.cookie.split(";");
-  for (let c of cookies) {
-    const [key, value] = c.trim().split("=");
-    if (key === name) return value;
-  }
-  return null;
-}
+let cliplang="cpp";
 
 // Clipboxes
 function setActiveTab(lang) {
@@ -120,10 +110,10 @@ const codeSnippets = {
   cpp: `int main(void) {
   return 0;
 }`,
-  rust: `use std::process
+  rust: `use std::process::exit;
 
 fn main() {
-  process::exit(0);
+  exit(0);
 }`
 };
 
@@ -167,7 +157,7 @@ function switchLanguage(lang) {
 }
 
 // Load default from cookie on page load
-let langFromCookie = getCookie("cliplang") || "cpp";
+let langFromCookie = cliplang || "cpp";
 switchLanguage(langFromCookie);
 
 document.querySelectorAll('#languageTabs div').forEach(div => {
@@ -175,7 +165,7 @@ document.querySelectorAll('#languageTabs div').forEach(div => {
     const lang = div.dataset.lang;
     switchLanguage(lang);
     // Save to the cookie for the next time:
-    document.cookie = `cliplang=${lang}; path=/; max-age=10000; SameSite=Lax`;
+    cliplang = lang;
   });
 });
 
