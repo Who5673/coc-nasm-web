@@ -86,7 +86,7 @@ cpclipbdc5.forEach((btn) => {
 });
 
 
-document.cookie = "cliplang=c; path=/; max-age=10000; SameSite=Lax"; /* SameSite=None; Secure */
+document.cookie = "cliplang=c; path=/; max-age=10000; SameSite=None; Secure"; /* SameSite=None; Secure or SameSite=Lax */
 
 // Get the cookie
 function getCookie(name) {
