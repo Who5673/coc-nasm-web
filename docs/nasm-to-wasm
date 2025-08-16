@@ -21,8 +21,13 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+from importlib.util import find_spec
 from itertools import chain
-from rich.traceback import install as inst; inst()
+module_name = "rich"
+if find_spec(module_name) is not None:
+    from rich.traceback import install as inst; inst()
+else:
+    pass
 from argparse import ArgumentParser
 from os import system as s
 from os import remove
@@ -34,11 +39,12 @@ parser = ArgumentParser(description="Compile NASM into WASM")
 parser1 = parser.add_mutually_exclusive_group(required=False)
 parser.add_argument('-i', '--input', type=str, help="Input a NASM file to compile")
 parser.add_argument('-o', '--output', type=str, help="Specify the output file after compiling")
-parser.add_argument('-e', '--export-name', type=str, help="Specify the export JavaScript function name. The default is loadWasm()")
 parser1.add_argument('-v', '--version', action='store_true', help='Show the version of coc-nasm and exit')
 args = parser.parse_args()
 
 
+global exported_function
+exported_function:str = "Non"
 # Registers
 # 64-bit registers
 reg64 = [
@@ -359,6 +365,8 @@ def wasm_compile(inputfile, outputfile, exportname):
             wat_lines.append(f'    local.get $rax')
             wat_lines.append(f'    return')
             wat_lines.append(f'  )')
+            global exported_function
+            exported_function = func_name
             wat_lines.append(f'  (export "{func_name}" (func ${func_name}))')
 
         wat_lines.append(')')
@@ -377,14 +385,7 @@ def wasm_compile(inputfile, outputfile, exportname):
                 outputname.pop(-1)
                 break
         outputname = ''.join(outputname)
-        exportscript = rf"""export async function {exportname}() {{
-    // Load WebAssembly normal functions:
-    const response = await fetch("{outputfile}");
-    const bytes = await response.arrayBuffer();
-    const result = await WebAssembly.instantiate(bytes);
-    return result.instance;
-}}
-""" # exportscript to export WebAssembly file from JavaScript.
+        
 
         with open(inputfile) as f:
             nasm_lines = f.readlines()
@@ -397,7 +398,56 @@ def wasm_compile(inputfile, outputfile, exportname):
         if ".wat" not in outputfile:
             s(f'wat2wasm {newoutputfile} -o {outputfile}')
             remove(newoutputfile)
-        
+        exportscript = rf"""
+/*
+Copyright (c) July, 2025 by who5673
+
+The MIT License
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+export async function {exportname}() {{
+    // Load WebAssembly normal functions:
+    const response = await fetch("{outputfile}");
+    const bytes = await response.arrayBuffer();
+    const result = await WebAssembly.instantiate(bytes);
+    return result.instance;
+}}
+
+let nasmToWasmInit = async function() {{
+  const instance = await {exportname}();
+  globalThis.{exported_function} = instance.exports.{exported_function};
+
+  return instance;
+}};
+
+export default nasmToWasmInit;
+/* How to call the function:
+
+await nasmInit();
+
+// After that, call the function normally. For example, sum(a, b);
+
+const x = sum(15, 20);
+
+*/
+""" # exportscript to export WebAssembly file from JavaScript.
         # Take down the exportscript:
         with open(JSoutput, "w") as fd:
             fd.write(exportscript)
@@ -410,10 +460,8 @@ def wasm_compile(inputfile, outputfile, exportname):
 if args.version:
     print('\x1b[1;38;2;247;240;15m0.2.11\x1b[0m')
     exit(0)
-if args.input and args.output and not args.export_name:
+if args.input and args.output:
     wasm_compile(f"{args.input}" ,f"{args.output}", "loadWasm")
-if args.input and args.output and args.export_name:
-    wasm_compile(f"{args.input}" ,f"{args.output}", f"{args.export_name}")
 elif args.input:
     file = args.input
     if ".nasm" not in file:

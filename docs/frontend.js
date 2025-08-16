@@ -21,9 +21,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+// import init, { returnformat } from "./rust-wasm/my_wasm_project.js";
+
+// await init();
 
 // WebAssembly and frontend.js
-Module.onRuntimeInitialized = () => {
+Module.onRuntimeInitialized = function() {
   const returnformat = Module.cwrap('returnformat', 'string', ['string']);
   const result2 = returnformat("Hello from WebAssembly!");
   console.log(result2);
@@ -45,7 +48,6 @@ Module.onRuntimeInitialized = () => {
   /* Static scripts */
   const backgroundmode = document.getElementById("light");
   const menu = document.getElementsByTagName("nav")[0];
-  const faketitle = document.getElementById("faketitle");
   backgroundmode.addEventListener("click", () => {
     switch (current_background) {
       case "dark":
@@ -60,9 +62,10 @@ Module.onRuntimeInitialized = () => {
         break;
     }
   });
-
-  /* Get the boxes in Home */
 }
+
+const currentPath = window.location.pathname;
+  /* Get the boxes in Home */
 
 
 /* JavaScript's Copy Clipboard */
@@ -103,69 +106,71 @@ function setActiveTab(lang) {
 }
 
 // Load C or Rust?
-const loadedLangs = new Set();
-const code = document.getElementById('testme');
-let rawCode = code.textContent;
-const codeSnippets = {
-  cpp: `int main(void) {
-  return 0;
-}`,
-  rust: `use std::process::exit;
+if (currentPath.endsWith("fake_document.html")) {
+  const loadedLangs = new Set();
+  const code = document.getElementById('testme');
+  let rawCode = code.textContent;
+  const codeSnippets = {
+    cpp: `int main(void) {
+    return 0;
+  }`,
+    rust: `use std::process::exit;
 
-fn main() {
-  exit(0);
-}`
-};
+  fn main() {
+    exit(0);
+  }`
+  };
 
-function unhighlightElement(code) {
-  code.classList.forEach(cls => {
-    if (cls.startsWith("language-")) {
-      code.classList.remove(cls);
+  function unhighlightElement(code) {
+    code.classList.forEach(cls => {
+      if (cls.startsWith("language-")) {
+        code.classList.remove(cls);
+      }
+    });
+    // remove attribute "data-highlighted":
+    code.removeAttribute("data-highlighted");
+  }
+  // Switch and highlight a language
+  function switchLanguage(lang) {
+    if (!codeSnippets[lang]) lang = "cpp"; // fallback if invalid
+
+    // Update tab highlight
+    setActiveTab(lang);
+
+    unhighlightElement(code);
+    code.className = `language-${lang}`;
+    code.textContent = codeSnippets[lang];
+
+    const scriptPath = `highlighters/c_rust_highlight/languages/${lang}.min.js`;
+
+    if (loadedLangs.has(lang)) {
+      hljs.highlightElement(code);
+      return;
     }
-  });
-  // remove attribute "data-highlighted":
-  code.removeAttribute("data-highlighted");
-}
-// Switch and highlight a language
-function switchLanguage(lang) {
-  if (!codeSnippets[lang]) lang = "cpp"; // fallback if invalid
 
-  // Update tab highlight
-  setActiveTab(lang);
-
-  unhighlightElement(code);
-  code.className = `language-${lang}`;
-  code.textContent = codeSnippets[lang];
-
-  const scriptPath = `highlighters/c_rust_highlight/languages/${lang}.min.js`;
-
-  if (loadedLangs.has(lang)) {
-    hljs.highlightElement(code);
-    return;
+    const script = document.createElement('script');
+    script.src = scriptPath;
+    script.onload = function() {
+      loadedLangs.add(lang);
+      hljs.highlightElement(code);
+    };
+    script.onerror = function() {
+      console.error(`Cannot load the script at ${scriptPath}`);
+    };
+    document.body.appendChild(script);
   }
 
-  const script = document.createElement('script');
-  script.src = scriptPath;
-  script.onload = function() {
-    loadedLangs.add(lang);
-    hljs.highlightElement(code);
-  };
-  script.onerror = function() {
-    console.error(`Cannot load the script at ${scriptPath}`);
-  };
-  document.body.appendChild(script);
-}
+  // Load default from cookie on page load
+  let langFromCookie = cliplang || "cpp";
+  switchLanguage(langFromCookie);
 
-// Load default from cookie on page load
-let langFromCookie = cliplang || "cpp";
-switchLanguage(langFromCookie);
-
-document.querySelectorAll('#languageTabs div').forEach(div => {
-  div.addEventListener('click', function() {
-    const lang = div.dataset.lang;
-    switchLanguage(lang);
-    // Save to the cookie for the next time:
-    cliplang = lang;
+  document.querySelectorAll('#languageTabs div').forEach(div => {
+    div.addEventListener('click', function() {
+      const lang = div.dataset.lang;
+      switchLanguage(lang);
+      // Save to the cookie for the next time:
+      cliplang = lang;
+    });
   });
-});
+}
 
