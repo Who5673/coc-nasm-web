@@ -3,6 +3,7 @@ name = "my_wasm_project"
 version = "0.1.0"
 edition = "2024"
 description = "My WASM rust project test"
+repositiory = "https://github.com/Who5673/coc-nasm-web"
 # license = "MIT"
 
 
