@@ -112,13 +112,13 @@ if (currentPath.endsWith("fake_document.html")) {
   let rawCode = code.textContent;
   const codeSnippets = {
     cpp: `int main(void) {
-    return 0;
-  }`,
+  return 0;
+}`,
     rust: `use std::process::exit;
 
-  fn main() {
-    exit(0);
-  }`
+fn main() {
+  exit(0);
+}`
   };
 
   function unhighlightElement(code) {
