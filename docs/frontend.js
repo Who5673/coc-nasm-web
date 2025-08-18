@@ -68,13 +68,15 @@ const currentPath = window.location.pathname;
   /* Get the boxes in Home */
 
 
-/* JavaScript's Copy Clipboard */
+/* JavaScript's Flexible Copy Clipboard */
 let cpclipbd = document.querySelectorAll(".c2");
 cpclipbd.forEach((btn) => {
   btn.addEventListener("click", () => {
-    const code = document.querySelector(".codeblock").textContent;
-    let cpresult = navigator.clipboard.writeText(code);
-    cpresult.then(() => window.alert("Copied")).catch(() => alert("Error while copying"));
+    const codeBlock = btn.closest(".nvimcodeinstallation").querySelector(".codeblock");
+    console.log(codeBlock);
+    navigator.clipboard.writeText(codeBlock.textContent)
+    .then(() => window.alert("Copied"))
+    .catch(() => alert("Error while copying"));
   });
 });
 
