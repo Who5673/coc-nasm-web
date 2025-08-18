@@ -72,11 +72,12 @@ const currentPath = window.location.pathname;
 let cpclipbd = document.querySelectorAll(".c2");
 cpclipbd.forEach((btn) => {
   btn.addEventListener("click", () => {
-    const code = document.querySelectorAll(".codeblock").textContent;
+    const code = document.querySelector(".codeblock").textContent;
     let cpresult = navigator.clipboard.writeText(code);
     cpresult.then(() => window.alert("Copied")).catch(() => alert("Error while copying"));
   });
 });
+
 let cpclipbdc5 = document.querySelectorAll(".c5");
 cpclipbdc5.forEach((btn) => {
   btn.addEventListener("click", () => {
