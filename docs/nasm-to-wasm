@@ -27,6 +27,8 @@ module_name = "rich"
 if find_spec(module_name) is not None:
     from rich.traceback import install as inst; inst()
 else:
+    print("""\x1b[1;38;2;0;227;252m💡 I suggest installing Rich library first before using this compiler to debug easier.
+\x1b[1;38;2;0;255;0m👉 Install rich library using: "sudo apt install python3-rich" or "pip install rich"\x1b[0m\x0a""")
     pass
 from argparse import ArgumentParser
 from os import system as s
@@ -42,9 +44,8 @@ parser.add_argument('-o', '--output', type=str, help="Specify the output file af
 parser1.add_argument('-v', '--version', action='store_true', help='Show the version of coc-nasm and exit')
 args = parser.parse_args()
 
-
-global exported_function
-exported_function:str = "Non"
+global exported_functions
+exported_functions:list = list()
 # Registers
 # 64-bit registers
 reg64 = [
@@ -83,6 +84,12 @@ seg_regs = [
 # All registers
 reg = list(chain(reg64, reg32, reg16, reg8, seg_regs))
 
+# Safe int converter
+def safe_int(s):
+    s = s.strip()
+    if s.lstrip("-+").isdigit():
+        return int(s)
+    return s
 
 # Exceptions
 class WrongFileTypeError(BaseException):
@@ -125,29 +132,161 @@ def checkoutputfile(file):
 
 # Main function for compiling NASM to WASM
 def wasm_compile(inputfile, outputfile, exportname):
-    def nasm_to_wat(nasm_lines):
-        in_data = False
+    def nasm_to_wat(nasm_lines:list):
+        global exported_functions
+        preprocessor_dict:dict = dict()
+        macro_prep_dict:dict = dict()
+        in_macro:int = 0
+        macro_body:list = list()
+        macro_name:str
+        ended_macro:bool = True
+        in_data:bool = False
         next_offset = 1024
         data_section = []
         equ_macros = {}
         data_labels = {}
         text_section = []
         wat_lines = ['(module\n  (memory (export "memory") 1)']
-        func_name = ""
+        func_name:str = ""
         params = set()
         locals_ = set()
         body = []
 
-        for line in nasm_lines:
-            stripped = line.strip()
-            if not stripped:
+        for line_number, line in enumerate(nasm_lines, start=1):
+            def deal_with_result(src) -> None:
+                if src in preprocessor_dict:
+                    key = preprocessor_dict.get(f"{src}", "undefined")
+                    if key == "undefined":
+                        raise KeyError("Error: Is the macro exist to get?")
+                    key = safe_int(key)
+                    y: str = type(key)
+                    if (y == "<class 'str'>"):
+                        if len(key) == 1:
+                            key = hex(ord(key))
+                            pass
+                        else:
+                            raise SyntaxError("Error: Invalid type integer number! This is a string, not int")
+                    body.append(f'    i32.const {key}')
+                else:
+                    body.append(f'    i32.const {src}')
+            def print_error(message: str) -> None:
+                print(f"\x1b[1;38;2;255;165;0m❗ Error: \x1b[1;38;2;255;255;0m{message}\x1b[0m")
+            def print_fatal(message: str) -> None:
+                print(f"\x1b[1;31m❌ Fatal error: \x1b[1;38;2;255;255;0m{message}\x1b[0m")
+            def print_warning(message: str) -> None:
+                print(f"\x1b[1;33m⚠️ Warning: \x1b[1;32m{message}\x1b[0m")
+
+            def print_table_top():
+                print("\x20", end="")
+                for i in range(1, 100, 1):
+                    print("_", end="")
+
+                print("\x0a|")
+            def print_table_bottom():
+                print("|", end="")
+                for i in range(1, 100, 1):
+                    print("_", end="\0")
+                print()
+            def show_error(line: str, start: int, end: int) -> None:
+                print(f"| \x20{line_number}\x09\x1b[1;37m{line}\x1b[0m")                         # show the original line
+                print("|" + "\x20" + " " * start + "\x20\x09" + "^" * (end - start))  # underline with carets
+                print("|")
+            def myerror(msg:str, error=1) -> None:
+                if error == 1:
+                    print_error(msg)
+                elif error == 0:
+                    print_warning(msg)
+                else:
+                    print_fatal(msg)
+                print_table_top()
+                show_error(stripped, 0, len(stripped), )
+                print_table_bottom()
+            stripped = line.strip().lower()
+
+            if not stripped and ended_macro:
+                continue
+            
+            if stripped.startswith(r'%define') and ended_macro:
+                try:
+                    single_line_macro:list = stripped.split(" ")
+                    if len(single_line_macro) != 3:
+                        raise SyntaxError("define preprocessor takes at most and at least 3 arguments.")
+                    single_macro, single_result = single_line_macro[1], single_line_macro[2]
+                    preprocessor_dict[f"{single_macro}"] = single_result
+                except SyntaxError as s:
+                    myerror(f"{s}")
+                    exit(1)
+                continue
+            
+            if stripped.startswith(r"%macro") and ended_macro:
+                try:
+                    multi_line_macro:list = stripped.split(" ")
+                    if len(multi_line_macro) != 3:
+                        raise SyntaxError("%macro preprocessor takes at most and at least 3 arguments: %macro macroname numberofparameters. Example: %macro print 1")
+                    elif multi_line_macro[2] != "0":
+                        raise SyntaxWarning("I am sorry to you that even though NASM supports this preprocessor, I have not supported this script yet.")
+                    macro_name = multi_line_macro[1]
+                    in_macro = 1
+                    ended_macro = False
+                except SyntaxError as s:
+                    myerror(f"{s}")
+                    exit(1)
+                except SyntaxWarning as s:
+                    myerror(f"{s}", error=0)
+                    macro_name = multi_line_macro[1]
+                    in_macro = 1
+                    ended_macro = False
                 continue
 
-            if stripped.startswith("section .data"):
+            if stripped.startswith(r"%macro") and not ended_macro:
+                try:
+                    raise SyntaxError("Another %macro ought not to put inside %macro preprocessor")
+                except SyntaxError as s:
+                    myerror(f"{s}")
+                    exit(1)
+
+            if in_macro == 1 and stripped != r"%endmacro":
+                try:
+                    if stripped == nasm_lines[-1]: 
+                        raise SyntaxError
+
+                    macro_body.append(stripped)
+
+                except SyntaxError as s:
+                    myerror(f"{s}")
+                    exit(1)
+                continue
+            
+            if stripped.startswith(r"%endmacro"):
+                try:
+                    if in_macro == 0:
+                        raise SyntaxError(f"Have you used %macro preprocessor before using this end one?")
+                    macro_descrip = "\n".join(macro_body)
+                    macro_prep_dict[f"{macro_name}"] = macro_descrip
+                    ended_macro = True
+                    in_macro = 0
+                    macro_body:list = list()
+                except SyntaxError as s:
+                    myerror(f"{s}")
+                    exit(1)
+                continue
+
+            if stripped.startswith(tuple(macro_prep_dict)):
+                macro_line = stripped.split(" ")
+                if len(macro_line) > 1:
+                    body.append("    ;; I will support macro with parameters later, but not for now.")
+                else:
+                    macro_descrip = macro_prep_dict[f"{macro_line[0]}"].split("\n")
+                    print(macro_descrip)
+                    for i, j in enumerate(macro_descrip, start=1):
+                        nasm_lines.insert(line_number + i, f"{j}")
+                continue
+
+            if stripped.startswith("section .data") or stripped.startswith("segment .data"):
                 in_data = True
                 continue
 
-            elif stripped.startswith("section .text"):
+            elif stripped.startswith("section .text") or stripped.startswith("segment .text"):
                 in_data = False
                 continue
 
@@ -203,12 +342,13 @@ def wasm_compile(inputfile, outputfile, exportname):
             else:
                 text_section.append(stripped)
 
-            for labal, val in data_labels.items():
-                data_bytes = val["bytes"].decode("latin1") # Keep the bytes
-                wat_lines.append(f'  (data (i32.const {val["offset"]}) "{data_bytes}")')
+                for label, val in data_labels.items():
+                    data_bytes = val["bytes"].decode("latin1") # Keep the bytes
+                    wat_lines.append(f'  (data (i32.const {val["offset"]}) "{data_bytes}")')
 
             if stripped.startswith("global"):
                 func_name = stripped.split()[1]
+                exported_functions.append(func_name)
                 continue
 
             if stripped.endswith(":"):
@@ -216,7 +356,7 @@ def wasm_compile(inputfile, outputfile, exportname):
                 if label == func_name:
                     func_signature = f'  (func ${label}'
                 else:
-                    body.append(f'  ;; Label ${label} (không phải entrypoint)')
+                    body.append(f'  ;; Label ${label} (this is not entrypoint)')
                 continue
 
             if stripped.startswith("mov"):
@@ -232,7 +372,8 @@ def wasm_compile(inputfile, outputfile, exportname):
                 if src in reg64:
                     body.append(f'    local.get ${src}')
                 else:
-                    body.append(f'    i32.const {src}')
+                    deal_with_result(src)
+
                 body.append(f'    local.set ${dst}')
                 continue
 
@@ -243,14 +384,17 @@ def wasm_compile(inputfile, outputfile, exportname):
 
                 if dst in reg64:
                     locals_.add(dst)
+
                 if src in reg64 and src not in locals_:
                     params.add(src)
-
                 body.append(f'    local.get ${dst}')
+
                 if src in reg64:
                     body.append(f'    local.get ${src}')
+
                 else:
-                    body.append(f'    i32.const {src}')
+                    deal_with_result(src)
+
                 body.append(f'    i32.add')
                 body.append(f'    local.set ${dst}')
                 continue
@@ -269,7 +413,7 @@ def wasm_compile(inputfile, outputfile, exportname):
                 if src in reg64:
                     body.append(f'    local.get ${src}')
                 else:
-                    body.append(f'    i32.const {src}')
+                    deal_with_result(src)
                 body.append(f'    i32.sub')
                 body.append(f'    local.set ${dst}')
                 continue
@@ -288,7 +432,7 @@ def wasm_compile(inputfile, outputfile, exportname):
                 if src in reg64:
                     body.append(f'    local.get ${src}')
                 else:
-                    body.append(f'    i32.const {src}')
+                    deal_with_result(src)
                 body.append(f'    i32.mul')
                 body.append(f'    local.set ${dst}')
                 continue
@@ -307,7 +451,7 @@ def wasm_compile(inputfile, outputfile, exportname):
                 if src in reg64:
                     body.append(f'    local.get ${src}')
                 else:
-                    body.append(f'    i32.const {src}')
+                    deal_with_result(src)
                 body.append(f'    i32.div_u')
                 body.append(f'    local.set ${dst}')
                 continue
@@ -326,7 +470,7 @@ def wasm_compile(inputfile, outputfile, exportname):
                 if src in reg64:
                     body.append(f'    local.get ${src}')
                 else:
-                    body.append(f'    i32.const {src}')
+                    deal_with_result(src)
                 body.append(f'    i32.div_s')
                 body.append(f'    local.set ${dst}')
                 continue
@@ -365,9 +509,8 @@ def wasm_compile(inputfile, outputfile, exportname):
             wat_lines.append(f'    local.get $rax')
             wat_lines.append(f'    return')
             wat_lines.append(f'  )')
-            global exported_function
-            exported_function = func_name
-            wat_lines.append(f'  (export "{func_name}" (func ${func_name}))')
+            if func_name in exported_functions:
+                wat_lines.append(f'  (export "{func_name}" (func ${func_name}))')
 
         wat_lines.append(')')
         return wat_lines
@@ -390,6 +533,7 @@ def wasm_compile(inputfile, outputfile, exportname):
         with open(inputfile) as f:
             nasm_lines = f.readlines()
             wat_lines = nasm_to_wat(nasm_lines)
+            global exported_functions
             newoutputfile = f"{outputname}.wat"
             JSoutput = f"{outputname}.js"
             with open(f"{newoutputfile}", "w") as g:
@@ -399,29 +543,6 @@ def wasm_compile(inputfile, outputfile, exportname):
             s(f'wat2wasm {newoutputfile} -o {outputfile}')
             remove(newoutputfile)
         exportscript = rf"""
-/*
-Copyright (c) July, 2025 by who5673
-
-The MIT License
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-*/
 export async function {exportname}() {{
     // Load WebAssembly normal functions:
     const response = await fetch("{outputfile}");
@@ -432,7 +553,6 @@ export async function {exportname}() {{
 
 let nasmToWasmInit = async function() {{
   const instance = await {exportname}();
-  globalThis.{exported_function} = instance.exports.{exported_function};
 
   return instance;
 }};
@@ -448,12 +568,16 @@ const x = sum(15, 20);
 
 */
 """ # exportscript to export WebAssembly file from JavaScript.
+        exportscript:list = exportscript.split("\x0a")
+        for i, function in enumerate(exported_functions, start=0):
+            exportscript.insert(11 + i, f"  globalThis.{function} = instance.exports.{function}")
+        exportscript = "\n".join(exportscript)
         # Take down the exportscript:
         with open(JSoutput, "w") as fd:
             fd.write(exportscript)
 
     except Exception as e:
-        print("Error:", e)
+        # raise Exception
         exit(1)
 
 # Deal with arguments
@@ -486,6 +610,6 @@ elif args.input:
     elif args.export_name:
         wasm_compile(f"{file2}", f"{file}.wasm", f"{args.export_name}")
 else:
-    print("\x1b[1;35mnasm-to-wasm: \x1b[1;38;2;255;0;0mfatal error: \x1b[1;33mno input files inside -i argument (also no -i argument too)")
-    print("\x1b[1;38;2;0;0;255mHint: \x1b[1;38;2;0;255;0mTry to run 'nasm-to-wasm -h' for the instructions\x1b[0m")
+    print("\x1b[1;38;2;255;255;255mnasm-to-wasm: \x1b[1;38;2;255;0;0mfatal error: \x1b[1;33mno input files inside -i argument (also no -i argument too)")
+    print("\x1b[1;38;2;8;118;252mHint: \x1b[1;38;2;0;255;0mTry to run \x22nasm-to-wasm -h\x22 for instructions\x1b[0m")
     exit(1)
