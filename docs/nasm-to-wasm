@@ -35,6 +35,8 @@ from os import system as s
 from os import remove
 from ast import literal_eval
 from os.path import isfile
+from datetime import datetime
+from decimal import Decimal, ROUND_HALF_UP
 
 # Parsers for arguments
 parser = ArgumentParser(description="Compile NASM into WASM")
@@ -130,22 +132,71 @@ def checkoutputfile(file):
         raise WrongFileTypeError("Output filetype must be a WebAssembly Text file (.wat) or WebAssembly binary file (.wasm)")
     else: pass
 
+# Check if WebAssembly Binary Toolkit is installed or not
+def wabt_is_installed() -> None:
+    x: bool = isfile("/usr/bin/wat2wasm")
+    y: bool = isfile("/usr/local/bin/wat2wasm")
+    if not x and not y:
+        option = input("""\x1b[1;37m👉 Attention: This script depends on WebAssembly Binary Toolkit (wabt).\x1b[0m
+It seems you have not installed that toolkit yet. Would you like to install it?
+(press y to continue or any key to refuse)\x0aYour answer: """).lower()
+        if (option == "y"):
+            s("sudo apt install wabt -y")
+            pass
+        else:
+            exit(1)
+    else:
+        pass
+
+# Mathematics Rounding
+def round_half_math(x:float) -> int:
+    return int(Decimal(x).to_integral_value(rounding=ROUND_HALF_UP))
+
+# Get the POSIX time
+def get_POSIX_time(time:tuple=()) -> int:
+    """Returns an exactly POSIX time of a specified date. By default, it returns the current one.
+Tuple of datetime order: (YYYY, MM, DD, HH, MM, SS)"""
+    if time != ():
+        # Create time object for the tuple
+        dt = datetime(time, tzinfo=None)
+        # Get the POSIX time
+        posix_time = round_half_math(dt.timestamp())
+    else:
+        # Get the current datetime
+        now = datetime.now()
+        posix_time = round_half_math(now.timestamp())
+    return posix_time
+
 # Main function for compiling NASM to WASM
-def wasm_compile(inputfile, outputfile, exportname):
+def wasm_compile(inputfile, outputfile:str, exportname:str) -> list:
     def nasm_to_wat(nasm_lines:list):
+        # Global variables
         global exported_functions
+
+        # Standard macros
+        standard_macros = {
+            "__?POSIX_TIME?__":get_POSIX_time(),
+        }
+
+        # Preprocessor dictionaries:
         preprocessor_dict:dict = dict()
         macro_prep_dict:dict = dict()
+
+        # Preprocessor variables:
         in_macro:int = 0
         macro_body:list = list()
         macro_name:str
         ended_macro:bool = True
+
+        # Runtime variables:
         in_data:bool = False
         next_offset = 1024
         data_section = []
         equ_macros = {}
         data_labels = {}
         text_section = []
+
+        # WebAssembly Text convert variables:
         wat_lines = ['(module\n  (memory (export "memory") 1)']
         func_name:str = ""
         params = set()
@@ -158,6 +209,8 @@ def wasm_compile(inputfile, outputfile, exportname):
                     key = preprocessor_dict.get(f"{src}", "undefined")
                     if key == "undefined":
                         raise KeyError("Error: Is the macro exist to get?")
+                    elif key in standard_macros:
+                        use_standard_macro(key)
                     key = safe_int(key)
                     y: str = type(key)
                     if (y == "<class 'str'>"):
@@ -201,8 +254,12 @@ def wasm_compile(inputfile, outputfile, exportname):
                 print_table_top()
                 show_error(stripped, 0, len(stripped), )
                 print_table_bottom()
+            def use_standard_macro(macro:str) -> None:
+                macro = standard_macros[macro]
+
             stripped = line.strip().lower()
 
+            # Preprocessor conditions:
             if not stripped and ended_macro:
                 continue
             
@@ -211,6 +268,8 @@ def wasm_compile(inputfile, outputfile, exportname):
                     single_line_macro:list = stripped.split(" ")
                     if len(single_line_macro) != 3:
                         raise SyntaxError("define preprocessor takes at most and at least 3 arguments.")
+                    if single_line_macro[2] in standard_macros:
+                        use_standard_macro(single_line_macro[2])
                     single_macro, single_result = single_line_macro[1], single_line_macro[2]
                     preprocessor_dict[f"{single_macro}"] = single_result
                 except SyntaxError as s:
@@ -218,32 +277,33 @@ def wasm_compile(inputfile, outputfile, exportname):
                     exit(1)
                 continue
             
-            if stripped.startswith(r"%macro") and ended_macro:
-                try:
-                    multi_line_macro:list = stripped.split(" ")
-                    if len(multi_line_macro) != 3:
-                        raise SyntaxError("%macro preprocessor takes at most and at least 3 arguments: %macro macroname numberofparameters. Example: %macro print 1")
-                    elif multi_line_macro[2] != "0":
-                        raise SyntaxWarning("I am sorry to you that even though NASM supports this preprocessor, I have not supported this script yet.")
-                    macro_name = multi_line_macro[1]
-                    in_macro = 1
-                    ended_macro = False
-                except SyntaxError as s:
-                    myerror(f"{s}")
-                    exit(1)
-                except SyntaxWarning as s:
-                    myerror(f"{s}", error=0)
-                    macro_name = multi_line_macro[1]
-                    in_macro = 1
-                    ended_macro = False
-                continue
+            if stripped.startswith(r"%macro"):
+                if ended_macro:
+                    try:
+                        multi_line_macro:list = stripped.split(" ")
+                        if len(multi_line_macro) != 3:
+                            raise SyntaxError("%macro preprocessor takes at most and at least 3 arguments: %macro macroname numberofparameters. Example: %macro print 1")
+                        elif multi_line_macro[2] != "0":
+                            raise SyntaxWarning("I am sorry to you that even though NASM supports this preprocessor, I have not supported this script yet.")
+                        macro_name = multi_line_macro[1]
+                        in_macro = 1
+                        ended_macro = False
+                    except SyntaxError as s:
+                        myerror(f"{s}")
+                        exit(1)
+                    except SyntaxWarning as s:
+                        myerror(f"{s}", error=0)
+                        macro_name = multi_line_macro[1]
+                        in_macro = 1
+                        ended_macro = False
+                    continue
 
-            if stripped.startswith(r"%macro") and not ended_macro:
-                try:
-                    raise SyntaxError("Another %macro ought not to put inside %macro preprocessor")
-                except SyntaxError as s:
-                    myerror(f"{s}")
-                    exit(1)
+                else:
+                    try:
+                        raise SyntaxError("Another %macro ought not to put inside %macro preprocessor")
+                    except SyntaxError as s:
+                        myerror(f"{s}")
+                        exit(1)
 
             if in_macro == 1 and stripped != r"%endmacro":
                 try:
@@ -277,11 +337,32 @@ def wasm_compile(inputfile, outputfile, exportname):
                     body.append("    ;; I will support macro with parameters later, but not for now.")
                 else:
                     macro_descrip = macro_prep_dict[f"{macro_line[0]}"].split("\n")
-                    print(macro_descrip)
+                    #print(macro_descrip)
                     for i, j in enumerate(macro_descrip, start=1):
                         nasm_lines.insert(line_number + i, f"{j}")
                 continue
+            
+            if stripped.startswith(r"%clear"):
+                preprocessor_dict = dict()
+                macro_prep_dict = dict()
+            
+            if stripped.startswith(r"%undef"):
+                try:
+                    text = stripped.split(" ")
+                    if len(text) != 2:
+                        raise SyntaxError(r"%undef preprocessor takes at least and at most 2 arguments")
+                    elif text[-1] not in preprocessor_dict and text[-1] not in macro_prep_dict:
+                        raise SyntaxError(f"{text[-1]} is not a defined macro to undefine")
+                    elif text[-1] in preprocessor_dict:
+                        preprocessor_dict.pop(text[-1])
+                    else:
+                        macro_prep_dict.pop(text[-1])
+                except SyntaxError as s:
+                    myerror(f"{s}")
+                    exit(1)
+                continue
 
+            # Runtime conditions:
             if stripped.startswith("section .data") or stripped.startswith("segment .data"):
                 in_data = True
                 continue
@@ -492,7 +573,11 @@ def wasm_compile(inputfile, outputfile, exportname):
                 func_signature += f' (param ${p} i32)'
             if 'rax' not in params and 'rax' in locals_:
                 # Start signing
-                func_signature_parts = [f'  (func ${func_name}']
+
+                if func_name in exported_functions:
+                    func_signature_parts = [f'  (func ${func_name} (export "{func_name}")']
+                else:
+                    func_signature_parts = [f'  (func ${func_name}']
                 # Add param
                 for p in sorted(params):
                     func_signature_parts.append(f'(param ${p} i32)')
@@ -509,8 +594,6 @@ def wasm_compile(inputfile, outputfile, exportname):
             wat_lines.append(f'    local.get $rax')
             wat_lines.append(f'    return')
             wat_lines.append(f'  )')
-            if func_name in exported_functions:
-                wat_lines.append(f'  (export "{func_name}" (func ${func_name}))')
 
         wat_lines.append(')')
         return wat_lines
@@ -551,13 +634,12 @@ export async function {exportname}() {{
     return result.instance;
 }}
 
-let nasmToWasmInit = async function() {{
+export default async function nasmToWasmInit() {{
   const instance = await {exportname}();
 
   return instance;
 }};
 
-export default nasmToWasmInit;
 /* How to call the function:
 
 await nasmInit();
@@ -582,11 +664,14 @@ const x = sum(15, 20);
 
 # Deal with arguments
 if args.version:
+    wabt_is_installed()
     print('\x1b[1;38;2;247;240;15m0.2.11\x1b[0m')
     exit(0)
 if args.input and args.output:
+    wabt_is_installed()
     wasm_compile(f"{args.input}" ,f"{args.output}", "loadWasm")
 elif args.input:
+    wabt_is_installed()
     file = args.input
     if ".nasm" not in file:
         if ".asm" in file: pass
@@ -610,6 +695,7 @@ elif args.input:
     elif args.export_name:
         wasm_compile(f"{file2}", f"{file}.wasm", f"{args.export_name}")
 else:
+    wabt_is_installed()
     print("\x1b[1;38;2;255;255;255mnasm-to-wasm: \x1b[1;38;2;255;0;0mfatal error: \x1b[1;33mno input files inside -i argument (also no -i argument too)")
     print("\x1b[1;38;2;8;118;252mHint: \x1b[1;38;2;0;255;0mTry to run \x22nasm-to-wasm -h\x22 for instructions\x1b[0m")
     exit(1)
