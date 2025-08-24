@@ -1,0 +1,9 @@
+
+Package: nasm-to-wasm
+Version: 0.3.13
+Section: utils
+Architecture: amd64
+Depends: wabt
+Priority: optional
+Maintainer: who5673 <windows7modrenedition@gmail.com>
+Description: Simple compiler to compile NASM source code into WAT and WebAssembly. Not supported all commands.

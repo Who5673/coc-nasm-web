@@ -257,7 +257,7 @@ def wasm_compile(inputfile, outputfile:str, exportname:str) -> list:
             def use_standard_macro(macro:str) -> None:
                 macro = standard_macros[macro]
 
-            stripped = line.strip().lower()
+            stripped = line.lower().split(";")[0].strip()
 
             # Preprocessor conditions:
             if not stripped and ended_macro:
@@ -665,7 +665,7 @@ const x = sum(15, 20);
 # Deal with arguments
 if args.version:
     wabt_is_installed()
-    print('\x1b[1;38;2;247;240;15m0.2.11\x1b[0m')
+    print('0.3.13')
     exit(0)
 if args.input and args.output:
     wabt_is_installed()
