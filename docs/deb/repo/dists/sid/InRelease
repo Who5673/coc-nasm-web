@@ -1,0 +1,35 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Codename: sid
+Date: Sun, 24 Aug 2025 05:25:58 UTC
+Architectures: amd64
+Components: main
+MD5Sum:
+ e5d70af5c650c64cc6614ca6faa87d81 593 main/binary-amd64/Packages
+ 5af6f4e6c0531ed00f003e442a30dc36 423 main/binary-amd64/Packages.gz
+ 063287201b2354699acfe229a752201d 36 main/binary-amd64/Release
+SHA1:
+ eab18722d2f3e696ce9dcf6b0dc42c87dff5b959 593 main/binary-amd64/Packages
+ 4bcf55f57fcafe6f5157d1c050d37bd2717cf1cb 423 main/binary-amd64/Packages.gz
+ f9082edea14092794f38390390e06abf8a922f7d 36 main/binary-amd64/Release
+SHA256:
+ 591583037f80f8790b604f6b61e18256b5bbc55e6588db66405ee49af9dcdf1e 593 main/binary-amd64/Packages
+ 626a0736457fb014645b34c64647b69d77fae0c6915aed5580181f557b329e0a 423 main/binary-amd64/Packages.gz
+ f4aafa353a338baedf9e98523c13d7ffeda979ec3cf745f9fad977dd770595c8 36 main/binary-amd64/Release
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE00BhuevjXiMtmN8dTi10UqWy1LMFAmiqomcACgkQTi10UqWy
+1LNWdQ/+N6ike3xjURUHZoxaHBGTTwfa2welE1bZ3MKA+se5H8M9CKiswaev1JyT
+DWbeuvqvPzi7weBb6cjFDyebUVHRPHZeDWmzgWC7eVFmnQt7dsH4ZwrYE6GVEVSA
+VR1XTH2aoaE/KTRcZcQvMEKLzfyr/Ouk25T3EGS6o7OvoBC922cg0i8+ouN91qqD
+qGSbmLGOrScj5c6I/gnpOno1kvtkvJamKCx2/lMBO1nzHFMkO8sxsaYmnKm5fkuZ
+FMvmNUvvb5fwKwN6Qivey9VWadgrhSVCkAKtwAotn3wxSNgt4U8Hp0NNnK1wh559
+wyVIkG12Iv/7d4ehzwrSZ9xJqrAb5vSVZUS6cecb/C46keaC5qctnox1tVkl6/GS
+B9JDBPrVq/H1CQVshEHia8pjzRsXafK3hT9P0QuvnPfWOIu6gLMxVMyyysLIS0+P
+hegtXxJfoL+RUSyFv55TkepMp1BjGguyAM5uFLuiNQrhE90aVyQ5NTL1N1Vs4oGx
+7fraA7FfGL2KAjziD3a3Ux8tOOlTZHXSLCmlxkmQwKspLEEERBwROCnGt6ad2Vm6
+CWHpA0kRWtkYXWusvooflFHl6cuF0OHUm4xtYaYr4D4dRaQAVevRdp8k8uV7MvL4
+1WQDAhI6PXwEFEdJ4nmmE2Ubm2MZASv7vGJDDcCZeb2u2YG699I=
+=i423
+-----END PGP SIGNATURE-----

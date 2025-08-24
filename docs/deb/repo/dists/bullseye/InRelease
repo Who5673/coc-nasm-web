@@ -1,0 +1,35 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Codename: bullseye
+Date: Sun, 24 Aug 2025 05:25:49 UTC
+Architectures: amd64
+Components: main
+MD5Sum:
+ e5d70af5c650c64cc6614ca6faa87d81 593 main/binary-amd64/Packages
+ 5af6f4e6c0531ed00f003e442a30dc36 423 main/binary-amd64/Packages.gz
+ 063287201b2354699acfe229a752201d 36 main/binary-amd64/Release
+SHA1:
+ eab18722d2f3e696ce9dcf6b0dc42c87dff5b959 593 main/binary-amd64/Packages
+ 4bcf55f57fcafe6f5157d1c050d37bd2717cf1cb 423 main/binary-amd64/Packages.gz
+ f9082edea14092794f38390390e06abf8a922f7d 36 main/binary-amd64/Release
+SHA256:
+ 591583037f80f8790b604f6b61e18256b5bbc55e6588db66405ee49af9dcdf1e 593 main/binary-amd64/Packages
+ 626a0736457fb014645b34c64647b69d77fae0c6915aed5580181f557b329e0a 423 main/binary-amd64/Packages.gz
+ f4aafa353a338baedf9e98523c13d7ffeda979ec3cf745f9fad977dd770595c8 36 main/binary-amd64/Release
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE00BhuevjXiMtmN8dTi10UqWy1LMFAmiqol4ACgkQTi10UqWy
+1LM1+hAAmpyjJLT1d8NAILJwabJ0CI80oCO4J1uikM873S8fV2TtFHAxW9Z/1WG1
+AZ9U8UT4MkRcxjZoF6zkBUsK80amvmKKYy2XoeHFDFoufjkgwLauTWqcqyKytsDi
+nx0XMkGpDlQXzl/Kz3ARCGCcchVSwxgUzUd+YjyAJ7tD+Y9IKAT+ZgKrRKKHzw0y
+LYDbp10y3+nAl3ILH66sgWzriDhsUDn9KIY3/U6Fpvmt1SAnfkmMHdaANIvo+T7L
+VKC/e3HWS5+ZSK6n+Hnwz1TXg14qaB/oNQEM9gQFtxzbqKYgvXS11U8wf/vIhpNS
+x7ZvR4xa9iQMtGOSkLCz/7S93EGUv8yhi3OuV2yruOcXb3J5mSDA3oBiAl85Bz3L
+kXCItEAdJLAMUFNN9+RSwSpjoRKAZYVQJhAPohn0avLsUD1mBsTfdC2UhYwH3jbz
+/4lXfTGLUwKTBW3Sa711rsjEnuOJVvz4kHPHVfMuo4Ex+AqBcIMSfDv1CgPU6CBl
+c/KrbipNlPCr+T8Et7qMIrEV1U6bsScPijkUHOvxIT/EqxcB2VBHqFJjIwEUAAub
+XH/7Zm87tIVIsNzs5yRKXQupwnG8hWPYaHz9M1B2IJtX5D+4q2QS9TelQByI9VnT
+dpySrN3YnsiS22t1r5NKToq1gKEvoLVs+VIigbMVdvn/sJleR6c=
+=CIx/
+-----END PGP SIGNATURE-----

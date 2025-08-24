@@ -1,0 +1,35 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Codename: saucy
+Date: Sun, 24 Aug 2025 05:25:58 UTC
+Architectures: amd64
+Components: main
+MD5Sum:
+ e5d70af5c650c64cc6614ca6faa87d81 593 main/binary-amd64/Packages
+ 5af6f4e6c0531ed00f003e442a30dc36 423 main/binary-amd64/Packages.gz
+ 063287201b2354699acfe229a752201d 36 main/binary-amd64/Release
+SHA1:
+ eab18722d2f3e696ce9dcf6b0dc42c87dff5b959 593 main/binary-amd64/Packages
+ 4bcf55f57fcafe6f5157d1c050d37bd2717cf1cb 423 main/binary-amd64/Packages.gz
+ f9082edea14092794f38390390e06abf8a922f7d 36 main/binary-amd64/Release
+SHA256:
+ 591583037f80f8790b604f6b61e18256b5bbc55e6588db66405ee49af9dcdf1e 593 main/binary-amd64/Packages
+ 626a0736457fb014645b34c64647b69d77fae0c6915aed5580181f557b329e0a 423 main/binary-amd64/Packages.gz
+ f4aafa353a338baedf9e98523c13d7ffeda979ec3cf745f9fad977dd770595c8 36 main/binary-amd64/Release
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE00BhuevjXiMtmN8dTi10UqWy1LMFAmiqomYACgkQTi10UqWy
+1LPmVQ/+NpTkrqj+QLZwU5UJtqBB6/vA71SMKDMwoYW63CabMRhvh/unl6p30E5i
+FyrB9ghXaSM5/C0xw7q1zWMbslZsZhQVhPb2P11LC0PxiMhheU0VBDpBJvR9Xb9h
+N8Oyi79kxiwUyQRtmtjX3+5AvoTxFQrEJ7m2NYKDeigWyqbQqtLMlhwiEat/vm/b
+f2tpx+UGPww2otONzEfwZFOaD9mkKqWPnn7NTw1KbY0mPJ5ZDS0vnXEFyXvIyi18
+MzpGmvSqZPPflfPpFo/IDfFWOuTcOvegwCGchjU5Rc8z2CuZew7ZhRvDr3ofmMRS
+ZuqMZpqIvWXFdHCOPCK8B5vBRjQb6oXTfrxoNfW+4hrAw4o144xU8UrDtmnIkkB3
+votWQLJ9bZsJKNlh5NXUI9zzjYm3C9B7B11mKXRnKHTvKrogNXRqv2UVdjM10nX9
+lmLd/HN7VRpcKPSz8eqZ++X1RXA2OHLCYomz2UGfBa1lGM/D3TB2frA4/ZuD9yYF
+5D/7Pp71hKQkp5WteAKAnH4YKw1n1/R6Gk8gD1hW9V7ua8kajnGLlxjPo48uMev8
+wz5vLdbvzgctKw3YuSvNnYU1H9KaNxscohW0Ydim6OJ/L8PpOo/zk5Dc6wuZUQJp
+zbzHkVKgHOKSJZrlibdgpie4YfYzSbnuvhnekJ4bonrI4XJY31E=
+=HzxX
+-----END PGP SIGNATURE-----

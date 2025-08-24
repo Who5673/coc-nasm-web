@@ -1,19 +1,165 @@
 Codename: stable
 Components: main
 Architectures: amd64
-SignWith: D34061B9EBE35E232D98DF1D4E2D7452A5B2D4B3
+SignWith: D34061B9EBE35E232D98DF1D4E2D7452A5B2D4B3 
 
 Codename: kali-rolling
 Components: main
 Architectures: amd64
-SignWith: D34061B9EBE35E232D98DF1D4E2D7452A5B2D4B3
+SignWith: D34061B9EBE35E232D98DF1D4E2D7452A5B2D4B3 
 
 Codename: bookworm
 Components: main
 Architectures: amd64
-SignWith: D34061B9EBE35E232D98DF1D4E2D7452A5B2D4B3
+SignWith: D34061B9EBE35E232D98DF1D4E2D7452A5B2D4B3 
+
+Codename: artful
+Components: main
+Architectures: amd64
+SignWith: D34061B9EBE35E232D98DF1D4E2D7452A5B2D4B3 
+
+Codename: bionic
+Components: main
+Architectures: amd64
+SignWith: D34061B9EBE35E232D98DF1D4E2D7452A5B2D4B3 
+
+Codename: bullseye
+Components: main
+Architectures: amd64
+SignWith: D34061B9EBE35E232D98DF1D4E2D7452A5B2D4B3 
+
+Codename: buster
+Components: main
+Architectures: amd64
+SignWith: D34061B9EBE35E232D98DF1D4E2D7452A5B2D4B3 
+
+Codename: cosmic
+Components: main
+Architectures: amd64
+SignWith: D34061B9EBE35E232D98DF1D4E2D7452A5B2D4B3 
+
+Codename: disco
+Components: main
+Architectures: amd64
+SignWith: D34061B9EBE35E232D98DF1D4E2D7452A5B2D4B3 
+
+Codename: focal
+Components: main
+Architectures: amd64
+SignWith: D34061B9EBE35E232D98DF1D4E2D7452A5B2D4B3 
+
+Codename: groovy
+Components: main
+Architectures: amd64
+SignWith: D34061B9EBE35E232D98DF1D4E2D7452A5B2D4B3 
+
+Codename: hirsute
+Components: main
+Architectures: amd64
+SignWith: D34061B9EBE35E232D98DF1D4E2D7452A5B2D4B3 
+
+Codename: impish
+Components: main
+Architectures: amd64
+SignWith: D34061B9EBE35E232D98DF1D4E2D7452A5B2D4B3 
 
 Codename: jammy
 Components: main
 Architectures: amd64
-SignWith: D34061B9EBE35E232D98DF1D4E2D7452A5B2D4B3
+SignWith: D34061B9EBE35E232D98DF1D4E2D7452A5B2D4B3 
+
+Codename: jessie
+Components: main
+Architectures: amd64
+SignWith: D34061B9EBE35E232D98DF1D4E2D7452A5B2D4B3 
+
+Codename: kinetic
+Components: main
+Architectures: amd64
+SignWith: D34061B9EBE35E232D98DF1D4E2D7452A5B2D4B3 
+
+Codename: noble
+Components: main
+Architectures: amd64
+SignWith: D34061B9EBE35E232D98DF1D4E2D7452A5B2D4B3 
+
+Codename: oracular
+Components: main
+Architectures: amd64
+SignWith: D34061B9EBE35E232D98DF1D4E2D7452A5B2D4B3 
+
+Codename: precise
+Components: main
+Architectures: amd64
+SignWith: D34061B9EBE35E232D98DF1D4E2D7452A5B2D4B3 
+
+Codename: quantal
+Components: main
+Architectures: amd64
+SignWith: D34061B9EBE35E232D98DF1D4E2D7452A5B2D4B3 
+
+Codename: raring
+Components: main
+Architectures: amd64
+SignWith: D34061B9EBE35E232D98DF1D4E2D7452A5B2D4B3 
+
+Codename: saucy
+Components: main
+Architectures: amd64
+SignWith: D34061B9EBE35E232D98DF1D4E2D7452A5B2D4B3 
+
+Codename: sid
+Components: main
+Architectures: amd64
+SignWith: D34061B9EBE35E232D98DF1D4E2D7452A5B2D4B3 
+
+Codename: stretch
+Components: main
+Architectures: amd64
+SignWith: D34061B9EBE35E232D98DF1D4E2D7452A5B2D4B3 
+
+Codename: trusty
+Components: main
+Architectures: amd64
+SignWith: D34061B9EBE35E232D98DF1D4E2D7452A5B2D4B3 
+
+Codename: utopic
+Components: main
+Architectures: amd64
+SignWith: D34061B9EBE35E232D98DF1D4E2D7452A5B2D4B3 
+
+Codename: vivid
+Components: main
+Architectures: amd64
+SignWith: D34061B9EBE35E232D98DF1D4E2D7452A5B2D4B3 
+
+Codename: wheezy
+Components: main
+Architectures: amd64
+SignWith: D34061B9EBE35E232D98DF1D4E2D7452A5B2D4B3 
+
+Codename: wily
+Components: main
+Architectures: amd64
+SignWith: D34061B9EBE35E232D98DF1D4E2D7452A5B2D4B3 
+
+Codename: xenial
+Components: main
+Architectures: amd64
+SignWith: D34061B9EBE35E232D98DF1D4E2D7452A5B2D4B3 
+
+Codename: yakkety
+Components: main
+Architectures: amd64
+SignWith: D34061B9EBE35E232D98DF1D4E2D7452A5B2D4B3 
+
+Codename: zesty
+Components: main
+Architectures: amd64
+SignWith: D34061B9EBE35E232D98DF1D4E2D7452A5B2D4B3 
+
+Codename: plucky
+Components: main
+Architectures: amd64
+SignWith: D34061B9EBE35E232D98DF1D4E2D7452A5B2D4B3 
+

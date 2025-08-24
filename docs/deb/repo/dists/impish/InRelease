@@ -1,0 +1,35 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Codename: impish
+Date: Sun, 24 Aug 2025 05:25:53 UTC
+Architectures: amd64
+Components: main
+MD5Sum:
+ e5d70af5c650c64cc6614ca6faa87d81 593 main/binary-amd64/Packages
+ 5af6f4e6c0531ed00f003e442a30dc36 423 main/binary-amd64/Packages.gz
+ 063287201b2354699acfe229a752201d 36 main/binary-amd64/Release
+SHA1:
+ eab18722d2f3e696ce9dcf6b0dc42c87dff5b959 593 main/binary-amd64/Packages
+ 4bcf55f57fcafe6f5157d1c050d37bd2717cf1cb 423 main/binary-amd64/Packages.gz
+ f9082edea14092794f38390390e06abf8a922f7d 36 main/binary-amd64/Release
+SHA256:
+ 591583037f80f8790b604f6b61e18256b5bbc55e6588db66405ee49af9dcdf1e 593 main/binary-amd64/Packages
+ 626a0736457fb014645b34c64647b69d77fae0c6915aed5580181f557b329e0a 423 main/binary-amd64/Packages.gz
+ f4aafa353a338baedf9e98523c13d7ffeda979ec3cf745f9fad977dd770595c8 36 main/binary-amd64/Release
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE00BhuevjXiMtmN8dTi10UqWy1LMFAmiqomIACgkQTi10UqWy
+1LNCtw/+KXKLWCHd+cA1whvziCRJ5kxySNt69wPZGAY9LJHGMIxOmvO8DoAMMful
+EHEY1XYiMb2j3fHYvm50KleKZGQNWt/+KSzhg8qYkExxg9PuBZetar6pwfK6uhrZ
+inRJdCtNv5xwPIoR+3L5i6pizQFZndv8EYUhv59z79J1BnxXosu2rI1oQRNigVU6
+6mSHQQ4lwMzkJpFYKZQsDvKeRNZ47gfAqNgc0VB6khlA/Dl1SMtxEPWh4W1LavKQ
+E98O24VmuKqNOxa+OZBILy8rHiUD87KlhPLaUtwJwklNiFcOFxwJOkqeT52JprzB
+YGV2qgv4FGpVR0eTwoMQm724BkuW/vBsNv6VgAatsA8LULZxE6M2rhxqF3V7mG6l
+4h2w8+U+VlSJbweeNtk6VNNuk+kJYTHXhb744A7bxvV7DV7VAJcmQ2sgziAPPJ4b
+C2fg6+J3FQb4bhH6mEHEmY3JKvquY7QrMnbYaoAuS4lLUmsxkHUGYxeeKrdYhzkf
+NU13XLxJ+XI2GnwVacAd4dSfvNg04AwAcJQRh3bpj3668wsr8mSur1gp4B3xidFG
+rlIJyu9728v8GQ3Ki2x/eh0zThUiF0xYRVf4THJyRQzWhhET6wVtizmTL7FBt1h1
+DzAb0sDbWmnR4lL8smNippCubUa2Hw9AT6rGk8EcZAlIqjdjnxI=
+=1bfY
+-----END PGP SIGNATURE-----

@@ -1,0 +1,35 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Codename: plucky
+Date: Sun, 24 Aug 2025 05:26:04 UTC
+Architectures: amd64
+Components: main
+MD5Sum:
+ e5d70af5c650c64cc6614ca6faa87d81 593 main/binary-amd64/Packages
+ 5af6f4e6c0531ed00f003e442a30dc36 423 main/binary-amd64/Packages.gz
+ 063287201b2354699acfe229a752201d 36 main/binary-amd64/Release
+SHA1:
+ eab18722d2f3e696ce9dcf6b0dc42c87dff5b959 593 main/binary-amd64/Packages
+ 4bcf55f57fcafe6f5157d1c050d37bd2717cf1cb 423 main/binary-amd64/Packages.gz
+ f9082edea14092794f38390390e06abf8a922f7d 36 main/binary-amd64/Release
+SHA256:
+ 591583037f80f8790b604f6b61e18256b5bbc55e6588db66405ee49af9dcdf1e 593 main/binary-amd64/Packages
+ 626a0736457fb014645b34c64647b69d77fae0c6915aed5580181f557b329e0a 423 main/binary-amd64/Packages.gz
+ f4aafa353a338baedf9e98523c13d7ffeda979ec3cf745f9fad977dd770595c8 36 main/binary-amd64/Release
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE00BhuevjXiMtmN8dTi10UqWy1LMFAmiqomwACgkQTi10UqWy
+1LOinA//XtIYf7oLgXjsAiR84sZohq4jX4mo2/CnEl9KyuuQFNxbCU/rlSV8hjDP
+DuofZtBJ9mxM6PPXjWRt6913bDon/ifYXgJ21+8fXZuPx/Egxz/iA305Q0s+K6XG
+y5qwj9Ajes6hqcf5+jbd76HNm+db1w68krmYcV6tK3U4M6YQmD0f71qfeFuH/Z4H
+rNRhXXcI+D3FJaBIEetDxQjsk5mm1l9+Ic7ppfvZJHuixL18LMD/+41PBaDgA7/u
+qqB9cTT+6GwBoSkW5VD3HLqIwaX5IsZiY44trE9JPXP4S0T7D9xIM6O9DFYbe2rT
+h+eZy06xgB1ziOsi6jJhbV75zHVpvkevJRHSuu2WuBLEW6Md3jA/6m0hkJcSnfq/
+g/LKmrvO0xSBYmOeJQK+ry+p1U5GtKsrx57eEbsotszx7YSi3XV6X5GNWjvxxb8D
+TlG+lk82T0QnDhNDL5AIJueasoHAUjcgARo9DI5RX56pKJrZk79+V9RFvJUi55C/
+qGB74SWbv55HuHHMeDHT3VGiw4EPazDYW3W0bg/fyo2QiO89lkS37D9q+lJRkjXo
+REdNL9UUrbVqINcpgoSSV2J4jG5G6NmEKyhURHWAsTQBUCxhfBdXu67L+v5FgAk3
+QkU+l9UxX/w035Au5zB2kSWvci2sXBbuqYtOxZmlYFDhLhKYD9I=
+=9cMW
+-----END PGP SIGNATURE-----

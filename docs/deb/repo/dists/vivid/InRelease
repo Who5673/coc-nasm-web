@@ -1,0 +1,35 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Codename: vivid
+Date: Sun, 24 Aug 2025 05:26:01 UTC
+Architectures: amd64
+Components: main
+MD5Sum:
+ e5d70af5c650c64cc6614ca6faa87d81 593 main/binary-amd64/Packages
+ 5af6f4e6c0531ed00f003e442a30dc36 423 main/binary-amd64/Packages.gz
+ 063287201b2354699acfe229a752201d 36 main/binary-amd64/Release
+SHA1:
+ eab18722d2f3e696ce9dcf6b0dc42c87dff5b959 593 main/binary-amd64/Packages
+ 4bcf55f57fcafe6f5157d1c050d37bd2717cf1cb 423 main/binary-amd64/Packages.gz
+ f9082edea14092794f38390390e06abf8a922f7d 36 main/binary-amd64/Release
+SHA256:
+ 591583037f80f8790b604f6b61e18256b5bbc55e6588db66405ee49af9dcdf1e 593 main/binary-amd64/Packages
+ 626a0736457fb014645b34c64647b69d77fae0c6915aed5580181f557b329e0a 423 main/binary-amd64/Packages.gz
+ f4aafa353a338baedf9e98523c13d7ffeda979ec3cf745f9fad977dd770595c8 36 main/binary-amd64/Release
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE00BhuevjXiMtmN8dTi10UqWy1LMFAmiqomkACgkQTi10UqWy
+1LOlmxAAor9OQ2iVeNWxRSlWARKyEWx/wuGRz/4BvlqNhA3sFqpaStL1rBEUsF3l
+eqUHkTV0zlV5zo8vs3aKvHTGdeujzuCXlOol5DDTMmLokfkelaGn6hGcCklXHFLP
+tnAHA/+CSgPH0umpHW+Gs8JZ5XJwOyXzRRHZiTtiNY27NJ5IlyQb7hWyj9Ut2aVx
+n9Fosr675RSB4RlwMenDXHHuyQXhtCPLYa1YfDcaSnt3lyJnKYJTL1WsHAX+cLyx
+neyjGHzaS8eWXIoOdoVA42/V8woTQWXq8oVLdSQATpLZZSwFcwlffwNRSy8DvzYl
+5DroMZ8W4KwHpW6GlDPYYsJKiWdckTD0i4yflRhtdoBiFzPoOAKYRmuv+uVfF5Db
+dOWIcos+WLnN8L1qH6k6nytMSg/TDPCKSKu5DDhYKCy2q+BE8n7RSDEbuQfJtfH7
+ELPogKvoeFZ22t6x9ugeuY7yswBf0WbivvVc7DaEwH5EabSstLjGfx3RAmwEaPe7
+pfbM/oltaMVoRE3cztqD8V1jeqSNB3cozTVRufYmnP7lM4j4lGsebFbUuHB/RB/1
+jSnU+XgejZJTxZZS0XD2mK8qCkZL1lhLPs3GItV4jcnA74G1MnJGsVz5dpD/t9Qh
+8cMaA4Rd5r6eR07yjCb1QoPpV6KDYPY2ntizhpthxNrKxRwHycY=
+=gzLR
+-----END PGP SIGNATURE-----

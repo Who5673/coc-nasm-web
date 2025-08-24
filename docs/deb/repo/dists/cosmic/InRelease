@@ -1,0 +1,35 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Codename: cosmic
+Date: Sun, 24 Aug 2025 05:25:50 UTC
+Architectures: amd64
+Components: main
+MD5Sum:
+ e5d70af5c650c64cc6614ca6faa87d81 593 main/binary-amd64/Packages
+ 5af6f4e6c0531ed00f003e442a30dc36 423 main/binary-amd64/Packages.gz
+ 063287201b2354699acfe229a752201d 36 main/binary-amd64/Release
+SHA1:
+ eab18722d2f3e696ce9dcf6b0dc42c87dff5b959 593 main/binary-amd64/Packages
+ 4bcf55f57fcafe6f5157d1c050d37bd2717cf1cb 423 main/binary-amd64/Packages.gz
+ f9082edea14092794f38390390e06abf8a922f7d 36 main/binary-amd64/Release
+SHA256:
+ 591583037f80f8790b604f6b61e18256b5bbc55e6588db66405ee49af9dcdf1e 593 main/binary-amd64/Packages
+ 626a0736457fb014645b34c64647b69d77fae0c6915aed5580181f557b329e0a 423 main/binary-amd64/Packages.gz
+ f4aafa353a338baedf9e98523c13d7ffeda979ec3cf745f9fad977dd770595c8 36 main/binary-amd64/Release
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE00BhuevjXiMtmN8dTi10UqWy1LMFAmiqol8ACgkQTi10UqWy
+1LPWWRAApxOLWal8a24BKzC057xfGd3MLIyVeMgjfcoefs6o/XN2gMDEmqhEBwF+
+awL4whAP3/yk9W52l5dGDA+eFOcyNKaDTL59xiQsl38YQ4bZLbizjleLCungbaCt
+xecCyN+eRbrjtsnF4jNsnDTe60dLMpCAqgEkKWgbs8H8lzsBvBEY/8GEaqPaWHKh
+VvV7m/POXQJGVAUf4KkEQbbOIxFatGRyw5b9Yk5Ob5WbGGEwXvZJksC/ox2SzmGR
+dY5Y/VgciqwDpFFEkZ4pd3nikPB55jJBrN/W9sEwXJSbkzUkMAGlTQmZmgVx/zBm
+cwN7AXSY5svUVoJdTssXm8mPUrgky3D2RqVJ6OmiOCrXACzXDWikK0KB8gWzOp3x
+MUZ+MWUbTHSN+pJyryYzJMVPESKXnheu65/KjYVWz3Q1KO02pyS5FmwaPk1IquBf
+2232vnRy46l3cLDQfqF1pjfYp5N4R+Dw/t8PDX152Z+QrkVUsYMLijJ45pEyNQ49
+VbpVw4j+ldQ5/bmLFhoIWPIEOdL1zM3E6cyhWo2LY/C2jxSK00TvKJsqkFF0sPFh
+ftaJE0hQAEpCNV8P5Vd7K8nKdp5rFQLbETVfBqWIoE+Bm0hUMQP+0edZzsyBucuf
++aojwLvZZQSCxLYubmam7m+Y7TcDv02yXCM6mS5wSf04Nh1BHEQ=
+=YoD2
+-----END PGP SIGNATURE-----
