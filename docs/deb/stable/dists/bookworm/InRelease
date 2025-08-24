@@ -1,0 +1,35 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Codename: bookworm
+Date: Sun, 24 Aug 2025 02:58:15 UTC
+Architectures: amd64
+Components: main
+MD5Sum:
+ e5d70af5c650c64cc6614ca6faa87d81 593 main/binary-amd64/Packages
+ 5af6f4e6c0531ed00f003e442a30dc36 423 main/binary-amd64/Packages.gz
+ 063287201b2354699acfe229a752201d 36 main/binary-amd64/Release
+SHA1:
+ eab18722d2f3e696ce9dcf6b0dc42c87dff5b959 593 main/binary-amd64/Packages
+ 4bcf55f57fcafe6f5157d1c050d37bd2717cf1cb 423 main/binary-amd64/Packages.gz
+ f9082edea14092794f38390390e06abf8a922f7d 36 main/binary-amd64/Release
+SHA256:
+ 591583037f80f8790b604f6b61e18256b5bbc55e6588db66405ee49af9dcdf1e 593 main/binary-amd64/Packages
+ 626a0736457fb014645b34c64647b69d77fae0c6915aed5580181f557b329e0a 423 main/binary-amd64/Packages.gz
+ f4aafa353a338baedf9e98523c13d7ffeda979ec3cf745f9fad977dd770595c8 36 main/binary-amd64/Release
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE00BhuevjXiMtmN8dTi10UqWy1LMFAmiqf8cACgkQTi10UqWy
+1LMbFxAAif1ylpF5BoW0Un5I5kmrn4LA+TTPgaDioFWJxzwemMjk45ZmQIWaxtCd
+uaFbsmpDk/PNjktBkQs+YceJexkkhJo17V64iKUXvoTnPJqMLwz7A345v3mv3gOi
+9St8zt7p/A4WqkoMJAou1gOv14De1imqa+2tFPf/WNfvBflJgh5B6XZtSF/v5m9o
+Xe8quCiQFRlGXmcCISxWo8v23kpKliW+9dpWBreN94XcCupZGgGEu5kyIdAJj6Fb
+WqPbqvvr517Gwwko7R21gyV63cb39Zj42k6NOwTuhky+y3kZdcPj97oIQJG7PZjv
+7XAIFwaHI9i4fqZoT+GKfveHBCUuVT2GCyHE4k8lM98eVB/S/8oggB1zmVPE8S5y
+OBfKLbODMbhhZu0ayxnFZs0D+FBHIDOrTsONLo1+Ac2roJNWDN2HNbivS9XvpWRN
+/i6M728o5hlfNlJ3k2Gdi+RHPDrXpS6a+y680Pbjg3gGk2s1m0AGUGyuVCly7Siw
+Qm5csYvVqjVtqgsdeosp0IQHRiVO+Z6xArrA4Q//yI7VQRurcO/YQgcYGN1Kg4+Y
+Qj/PggDwZGh7NrvTAfMabyOr+Nm7GL+6HwAasILR5qKjxVjLMAs9a018nu69odaO
+zgEEffMnFMzsCBYHVwTu6VIVdTRvTNMR/1SnydUsV5qR2RFjtSo=
+=ZOIG
+-----END PGP SIGNATURE-----
