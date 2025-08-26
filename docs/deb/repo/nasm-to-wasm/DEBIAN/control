@@ -1,6 +1,6 @@
 
 Package: nasm-to-wasm
-Version: 0.3.13
+Version: 0.3.14
 Section: utils
 Architecture: amd64
 Depends: wabt

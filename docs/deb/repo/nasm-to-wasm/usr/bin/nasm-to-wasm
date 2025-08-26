@@ -93,6 +93,9 @@ def safe_int(s):
         return int(s)
     return s
 
+def compile_version() -> None:
+    print('0.3.14')
+
 # Exceptions
 class WrongFileTypeError(BaseException):
     def __init__(self, m=None):
@@ -665,7 +668,7 @@ const x = sum(15, 20);
 # Deal with arguments
 if args.version:
     wabt_is_installed()
-    print('0.3.13')
+    compile_version()
     exit(0)
 if args.input and args.output:
     wabt_is_installed()
