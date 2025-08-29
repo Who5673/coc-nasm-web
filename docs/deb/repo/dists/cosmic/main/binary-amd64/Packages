@@ -1,15 +1,16 @@
 Package: nasm-to-wasm
 Version: 0.3.14
 Architecture: amd64
-Depends: wabt
+Depends: wabt,python3
+Suggests: python3-rich
 Maintainer: who5673 <windows7modrenedition@gmail.com>
 Priority: optional
 Section: utils
 Filename: pool/main/n/nasm-to-wasm/nasm-to-wasm_0.3.14_amd64.deb
-Size: 7156
-SHA256: f2dc8b105b13367843ffa660792b201e552f504383b0ecc3796b3d3baff7d3ec
-SHA1: a392d7b141f87ed5afe009a9959df11f9a29bb28
-MD5sum: 9c4b1571563653af7eda6ed80b52462e
+Size: 7180
+SHA256: 36a495b2ca63d55449e1912d4456b0d153432379cb3f960615412d76c5ea7779
+SHA1: b164a1f203be755d119ca336c5b80c7b7f038b8a
+MD5sum: e4335af7da0e99eec311675b68ce6d86
 Description: Simple compiler to compile NASM source code into WAT and WebAssembly. Not supported all commands.
 
 Package: password-generator
