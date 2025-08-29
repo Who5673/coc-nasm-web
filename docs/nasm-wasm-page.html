@@ -35,11 +35,13 @@
     </header>
     <main>
       <section>
-        <h1 id="testtitle">See also our projects</h1>
+        <h1 id="testtitle">nasm-to-wasm installation</h1>
+        <p class="fakedefault"><i>I have not supported other architectures yet <b>with the exception of amd64</b>. In the future, I promise I will configure my apt repo soon.</i></p>
       </section>
 
       <h2 class="fakedefault">Install nasm-to-wasm:</h2>
-      <h3 class="fakedefault">For Debian-based Linux, add a repository into Advanced Package Tool, the update and install <code>nasm-to-wasm</code>:</h3>
+      <h3 class="fakedefault">For Debian-based Linux:</h3>
+      <p class="fakedefault">Add a repository into Advanced Package Tool, the update and install <code>nasm-to-wasm</code>:</p>
       <p class="c3">Bash</p>
       <section class="nvimcodeinstallation">
         <div class="c">
@@ -51,7 +53,8 @@ echo "deb [signed-by=/usr/share/keyrings/coc-nasm-web.gpg arch=amd64] https://wh
 sudo apt update && sudo apt install nasm-to-wasm</code>
         </pre>
       </section>
-
+      
+      <p class="fakedefault">If the codename is not supported, use <code>stable</code> as an alternative (not recommend if <code>lsb_release -cs</code> returns a supported codename):</p>
       <p class="c3">Bash</p>
       <section class="nvimcodeinstallation">
         <div class="c">
@@ -61,6 +64,18 @@ sudo apt update && sudo apt install nasm-to-wasm</code>
           <code class="codeblock">echo "deb [signed-by=/usr/share/keyrings/coc-nasm-website.gpg arch=amd64] https://who5673.github.io/coc-nasm-web/deb/repo stable main" | sudo tee /etc/apt/sources.list.d/coc-nasm-web.list</code>
         </pre>
       </section>
+      <h3 class="fakedefault">For other Operating System:</h3>
+      <p class="fakedefault"><b>Step 1</b>: Go to <a href="https://github.com/Who5673/coc-nasm-web/blob/main/docs/deb/repo/nasm-to-wasm/usr/bin/nasm-to-wasm" target="_blank">this page in coc-nasm-web github repo.</a></p>
+      <p class="fakedefault"><b>Step 2</b>: In the website, click the download button like the image below:</p>
+      <picture>
+        <source srcset="images/display.png" type="image/png">
+        <img alt="" title="Screenshot image"  width="1366" height="768.375">
+      </picture>
+      <p class="fakedefault">The <code>nasm-to-wasm</code> downloaded will be in <code>~/Downloads</code> like this:</p>
+      <picture>
+        <source srcset="images/downloaded_file.png" type="image/png">
+        <img alt="" title="Screenshot image">
+      </picture>
     </main>
     <footer>
       <section>

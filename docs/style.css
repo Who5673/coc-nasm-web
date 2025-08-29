@@ -14,7 +14,9 @@
 html {
   scroll-behavior: smooth;
 }
-
+code {
+  font-size: larger;
+}
 /* Background configuration */
 body {
   background-color: hsl(0, 0%, 50%);
