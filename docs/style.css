@@ -48,11 +48,14 @@ nav {
   height: 100vh;
   box-sizing: border-box;
   padding: 20px;
-  display: flex;
+  display: none;
   border-right: 2px solid;
   border-color: white;
   border-radius: 1px;
   overflow-y: auto;
+}
+nav.show {
+  display: flex;
 }
 nav.light{
   border-color: #000000;
@@ -87,9 +90,28 @@ nav a:active {
 
 /* General home */
 main, footer {
-  margin-left: 350px;
+  margin-left: 0px;
   flex: 1;
   padding: 20px;
+}
+main.show, footer.show {
+  margin-left: 350px;
+}
+#openmenu {
+  position: fixed;
+  background-color: hsl(0, 0%, 0%);
+  width: 25px;
+  height: 25px;
+  border-radius: 2px;
+}
+#openmenu:hover {
+  background-color: hsla(0, 0%, 60%, 98%);
+}
+#openmenu:active {
+  background-color: hsl(0, 0%, 20%);
+}
+#openmenu.show {
+  position: static;
 }
 #testtitle {
   font-weight: 900;
@@ -286,6 +308,10 @@ main, footer {
 .attr {
   color: blue;
   text-decoration: none;
+}
+/* Hex converter */
+#hex_converter {
+  border: 1px solid #000000;
 }
 
 /* Markdown page */

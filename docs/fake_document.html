@@ -64,12 +64,14 @@ SOFTWARE.
             <li><a href="#first_nasm_pj">3. Your first NASM script</a></li>
             <li><a href="#disnasm">4. Disassemble a RAW binary file</a></li>
             <li><h3><span style="color: rgba(255, 165, 0, 98%);">Basic skills about Netwide Assembler for starters</span></h3></li>
-            <li><a href="#asm_def">1. Basic information</a></li>
+            <li><a href="#get_started_with_nasm">1. Basic Information</a></li>
+            <li><button id="closemenu">Close menu</button></li>
           </ul>
         </nav>
     </div>
     </header>
     <main>
+      <img id="openmenu" width="25" height="25" src="not_all_icons/menu.svg">
       <section id="titles">
         <h1 id="faketitle">Pseudo document</h1>
         <p style="font-family: Michroma; font-size: 20px;">(The real document is at <a target="_blank" href="https://nasm.us/doc/nasmdoc0.html" style="text-decoration: none; color: cyan;" title="Netwide Assembler main website">https://nasm.us/doc/nasmdoc0.html</a></p>
@@ -302,7 +304,7 @@ echo -ne '\x48\xb8\x01\x00\x00\x00\x00\x00\x00\x00\x48\xbf\x01\x00\x00\x00\x00\x
 </code></pre>
       </section>
 
-      <h2 class="fakedefault">Get started with Netwide Assembler</h2>
+      <h2 class="fakedefault" id="get_started_with_nasm">Get started with Netwide Assembler</h2>
       <p class="fakedefault">
         Not like mid-level and high-level programming languages, NASM is a low-level one and it is much harder to find
         documents for learning it. Moreover, before programming this language, you need to know some skills about basic
@@ -331,6 +333,64 @@ int main(void) {
         </section>
       </section>
 
+      <h3 class="fakedefault">1. Hexdecimal number and address</h3>
+      <p class="fakedefault">Hexdecimal is really important to deal with the data and initialize a value into things like:</p>
+      <ul class="fakedefault">
+        <li><b>Register</b>: Things in the CPU that can be writen or overwritten a value like hexdecimal integers in order to make an interrupt like you want.</li>
+        <p class="c3">NASM</p>
+        <section class="nvimcodeinstallation">
+          <div class="c">
+            <p class="c2"><img src="clipboard.svg" alt="" class="copy-btn"> Copy</p>
+          </div>
+          <pre><code class="codeblock">; I will tell you how to use the `mov` command later
+mov ax, 0x5307    ; (16-bit) APM Basic Input/Output System (BIOS) function: Set power state
+mov bx, 0x0001    ; (16-bit) Device ID: All devices
+mov cx, 0x0003    ; (16-bit) Power State: Off
+int 0x15          ; (16-bit) APM Interrupt</code>
+      </section>
+        <li><b>Memory address</b>: Used as an address to save an array of ASCII characters. This is the only method that helps you print strings.<br><br>
+          Memory syntax example in NASM with <code>default abs</code>:
+          <ul>
+            <li><b><code>[0x601000]</code></b> :absolute;</li>
+            <li><b><code>[rel msg]</code></b>: relative label example address named msg;</li>
+            <li><b><code>[msg]</code></b>: Label memory address that is defined</li>
+            <li><b>NOTE:</b> Some registers like <code>rsi</code> does not need square brackets to make it be an address. For instance:</li>
+            <p class="c3">NASM</p>
+            <section class="nvimcodeinstallation">
+              <div class="c">
+                <p class="c2"><img src="clipboard.svg" alt="" class="copy-btn"> Copy</p>
+              </div>
+              <pre><code class="codeblock">; I will tell you how to use the `mov`, `section .data` and `db` commands later
+mov rsi, msg
+
+section .data
+  msg db "Hello world", 0xa, 0x0</code>
+            </section>
+          </ul>
+        </li>
+        <li><b>Immediate</b>: An array of ASCII characters that is saved into a label which is an alias of something like integer value and memory address.</li>
+        <p class="c3">NASM</p>
+        <section class="nvimcodeinstallation">
+          <div class="c">
+            <p class="c2"><img src="clipboard.svg" alt="" class="copy-btn"> Copy</p>
+          </div>
+          <pre><code class="codeblock">msg db "Example string", 0xa, 0x0    ; db: Define byte a character or an array of characters, each character takes 1 byte (8-bit)
+len equ $-msg                        ; Calculates the length of the array by subtracting current address by msg label offset
+                                     ; equ: Define a constant</code>
+        </section>
+      </ul>
+      
+
+      <div id="hex_converter">
+        <h3 class="fakedefault">Integer to Hexdecimal</h3>
+        <textarea class="fakedefault" placeholder="Integer" id="input_int">
+          
+        </textarea>
+        <br><br>
+        <textarea class="fakedefault" placeholder="Hexdecimal" id="output_hex">
+          
+        </textarea>
+      </div>
       <!--Frontends-->
       <script type="module" src="frontend.js"></script>
 

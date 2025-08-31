@@ -21,7 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-import init, { returnformat } from "./rust-wasm/my_wasm_project.js";
+import init, { get_element_id, returnformat } from "./rust-wasm/my_wasm_project.js";
 
 await init();
 
@@ -41,6 +41,21 @@ window.addEventListener("DOMContentLoaded", () => {
       }, 100)
     }
   }
+});
+
+// Menu close button
+get_element_id(returnformat("closemenu")).addEventListener("click", function() {
+  document.querySelector("nav").classList.remove("show");
+  document.querySelector("main").classList.remove("show");
+  document.querySelector("footer").classList.remove("show");
+  get_element_id("openmenu").classList.remove("show");
+});
+// Menu open button
+get_element_id(returnformat("openmenu")).addEventListener("click", function() {
+  document.querySelector("nav").classList.add("show");
+  document.querySelector("main").classList.add("show");
+  document.querySelector("footer").classList.add("show");
+  get_element_id("openmenu").classList.add("show");
 });
 
 /* Static scripts */
