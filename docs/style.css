@@ -287,6 +287,42 @@ main, footer {
   color: blue;
   text-decoration: none;
 }
+
+/* Markdown page */
+.md_bg {
+  border: 1px solid;
+}
+#md_input {
+  width: 50vw;
+  height: 100vh;
+  display: flex;
+}
+#md_output {
+  position: fixed;
+  margin-left: 50vw;
+  width: 50vw;
+  overflow-y: auto;
+  height: 100vh;
+  flex: 1;
+  padding: 20px;
+}
+#md_reader {
+  background-color: hsl(0, 0%, 50%);
+  width: 46.5vw;
+  height: 100vh;
+  font-family: sans-serif, Arial;
+  font-size: 20px;
+  position: fixed;
+}
+#md_result {
+  border: 1px solid;
+  width: 48vw;
+  height: 100vh;;
+}
+#parse_md {
+  margin-left: 50vh;
+  margin-bottom: 20px;
+}
 /* Animations and other things */
 @keyframes Three_Dimentional_Spin {
   100% {

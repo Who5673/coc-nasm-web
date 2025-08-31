@@ -38,7 +38,12 @@
         <h1 id="testtitle">nasm-to-wasm installation</h1>
         <p class="fakedefault"><i>I have not supported other architectures yet <b>with the exception of amd64</b>. In the future, I promise I will configure my apt repo soon.</i></p>
       </section>
-
+        
+      <h2 class="fakedefault"><code>nasm-to-wasm</code> dependencies:</h2>
+      <ol class="fakedefault">
+        <li><a href="https://python.org" style="color: blue;">Python3</a></li>
+        <li><a href="https://github.com/WebAssembly/wabt" style="color: blue;">WebAssembly Binary Toolkit</a></li>
+      </ol>
       <h2 class="fakedefault">Install nasm-to-wasm:</h2>
       <h3 class="fakedefault">For Debian-based Linux:</h3>
       <p class="fakedefault">Add a repository into Advanced Package Tool, the update and install <code>nasm-to-wasm</code>:</p>
@@ -76,13 +81,125 @@ sudo apt update && sudo apt install nasm-to-wasm</code>
         <source srcset="images/downloaded_file.png" type="image/png">
         <img alt="" title="Screenshot image">
       </picture>
-    </main>
-    <footer>
-      <section>
-    </main>
-    <footer>
-      <section>
+      <p class="fakedefault"><b>Step 3:</b> Run the script using Python Interpreter:</p>
+      <p class="c3">Bash</p>
+      <section class="nvimcodeinstallation">
+        <div class="c">
+          <p class="c2"><img src="clipboard.svg" alt="" class="copy-btn">Copy</p>
+        </div>
+        <pre>
+          <code class="codeblock"># For Windows, run this script with python3:
+python3 nasm-to-wasm.py
 
+# For Unix-based system, provide the script with the permission of executing, then run directly the script:
+chmod +x nasm-to-wasm
+./nasm-to-wasm</code>
+        </pre>
+      </section>
+      <h2 class="fakedefault">Establish your first Netwide Assembler (NASM) program and then compile it into WASM:</h2>
+      <p class="fakedefault"><i>This compiler is not as good as the real NASM one. Therefore, many commands cannot be supported because of the difference between WebAssembly Text and Netwide Assembler architectures.</i></p>
+      <h3 class="fakedefault">Step 1: Take down Netwide Assembler script:</h3>
+      <p class="fakedefault">Example filename: <code>main.nasm</code></p>
+      <p class="c3">NASM</p>
+      <section class="nvimcodeinstallation">
+        <div class="c">
+          <p class="c2"><img src="clipboard.svg" alt="" class="copy-btn">Copy</p>
+        </div>
+        <pre>
+          <code class="codeblock">segment .text
+  global sum
+
+sum:
+  mov rax, rdi
+  add rax, rsi
+  ret</code>
+        </pre>
+      </section>
+      <h3 class="fakedefault">Step 2: Choose one of 2 options below:</h3>
+      <h4 class="fakedefault">Option 1: Compile into WebAssembly Binary directly:</h4>
+      <p class="c3">Bash</p>
+      <section class="nvimcodeinstallation">
+        <div class="c">
+          <p class="c2"><img src="clipboard.svg" alt="" class="copy-btn">Copy</p>
+        </div>
+        <pre>
+          <code class="codeblock">nasm-to-wasm -i main.nasm -o main.wasm</code>
+        </pre>
+      </section>
+      <h4 class="fakedefault">Option 2: Compile into WebAssembly Text Format (WAT), then use <code>wat2wasm</code> to compile the WAT script:</h4>
+      <p class="fakedefault">(This is how the <code>nasm-to-wasm</code> compiler works)</p>
+      <p class="c3">Bash</p>
+      <section class="nvimcodeinstallation">
+        <div class="c">
+          <p class="c2"><img src="clipboard.svg" alt="" class="copy-btn">Copy</p>
+        </div>
+        <pre>
+          <code class="codeblock">nasm-to-wasm -i main.nasm -o main.wat
+wat2wasm main.wat -o main.wasm</code>
+        </pre>
+      </section>
+      <p class="fakedefault">You will also receive a JavaScript file like this <b><code>main.js</code></b>:</p>
+      <p class="c3">JavaScript</p>
+      <section class="nvimcodeinstallation">
+        <div class="c">
+          <p class="c2"><img src="clipboard.svg" alt="" class="copy-btn">Copy</p>
+        </div>
+        <pre>
+          <code class="codeblock">export async function loadWasm() {
+  // Load WebAssembly normal functions:
+  const response = await fetch("main.wasm");
+  const bytes = await response.arrayBuffer();
+  const result = await WebAssembly.instantiate(bytes);
+  return result.instance;
+}
+
+export default async function nasmToWasmInit() {
+  const instance = await loadWasm();
+  globalThis.sum = instance.exports.sum
+
+  return instance;
+};</code>
+        </pre>
+      </section>
+      <h3 class="fakedefault">Step 3: Test the script inside a HTML file:</h3>
+      <p class="fakedefault">Example file: <code>index.html</code></p>
+      <p class="c3">HTML</p>
+      <section class="nvimcodeinstallation">
+        <div class="c">
+          <p class="c2"><img src="clipboard.svg" alt="" class="copy-btn">Copy</p>
+        </div>
+        <pre>
+          <code class="codeblock">&lt;!DOCTYPE html>
+&lt;html lang="en">
+  &lt;head>
+    &lt;meta charset="UTF-8">
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0">
+    &lt;title>Netwide Document&lt;title>
+    &lt;!--I suggest finding an image file and link it into HTML as a favicon in order to clear the favicon.ico error in the page, for example:--&gt;
+    &lt;link rel="icon" type="image/png" href="example_image.png"&gt;
+  &lt;/head>
+  &lt;body>
+    &lt;script type="module" src="frontend.js">&lt;script> &lt;!--Example script--&gt;
+  &lt;/body>
+&lt;/html></code>
+        </pre>
+      </section>
+
+      <p class="c3">JavaScript</p>
+      <section class="nvimcodeinstallation">
+        <div class="c">
+          <p class="c2"><img src="clipboard.svg" alt="" class="copy-btn">Copy</p>
+        </div>
+        <pre>
+          <code class="codeblock">import nasmToWasmInit from "./main.js";
+
+await nasmToWasmInit();   // Load the function from the WebAssembly Binary asynchorously
+console.log(sum(5, 3));   // Must return 8</code>
+        </pre>
+      </section>
+    </main>
+    <footer>
+      <section>
         <hr>
         <p style="font-family: sans-serif;">Copyright &copy; 2025 July by who5673. All rights served.</p>
         <h1 style="font-family: sans-serif;">LICENSE</h1>
@@ -91,8 +208,10 @@ sudo apt update && sudo apt install nasm-to-wasm</code>
     </footer>
     <script src="highlighters/luahighlight/highlight.min.js"></script>
     <script src="highlighters/bashhighlight/languages/bash.min.js"></script>
-    <script src="highlighters/vimhighlight/languages/vim.min.js"></script>
-    <script src="highlighters/luahighlight/languages/lua.min.js"></script>
+    <script src="highlighters/x86asmhighlighters/languages/x86asm.min.js"></script>
+    <script src="highlighters/wasmhighlight/languages/wasm.min.js"></script>
+    <script src="highlighters/webscripthighlight/languages/javascript.min.js"></script>
+    <script src="highlighters/html_css_md_highlight/languages/xml.min.js"></script>
     <script>hljs.highlightAll();</script>
     <script type="module" src="frontend.js"></script>
   </body>

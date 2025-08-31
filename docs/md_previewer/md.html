@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Who5673's Markdown Tester</title>
+    <link rel="icon" type="image/svg" href="../coc-nasm-favison.svg">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../highlighters/luahighlight/styles/github-dark.min.css">
+    <link rel="stylesheet" href="../highlighters/x86asmhighlighters/styles/github-dark.min.css">
+</head>
+<body>
+    <button id="parse_md">Parse markdown</button>
+    <nav id="md_input" class="md_bg">
+        <textarea id="md_reader">
+            
+        </textarea>
+    </nav>
+    <main id="md_output" class="md_bg">
+        <div id="md_result" class="fakedefault"></div>
+    </main>
+</body>
+<script src="md_frontend.js" type="module"></script>
+
+<!--Highlighters-->
+<script src="markdown_highlighttool/highlight.min.js"></script>
+<script src="markdown_highlighttool/languages/1c.min.js"></script>
+<script src="markdown_highlighttool/languages/abnf.min.js"></script>
+<script src="markdown_highlighttool/languages/accesslog.min.js"></script>
+<script src="markdown_highlighttool/languages/actionscript.min.js"></script>
+<script src="markdown_highlighttool/languages/ada.min.js"></script>
+<script src="markdown_highlighttool/languages/angelscript.min.js"></script>
+<script src="markdown_highlighttool/languages/apache.min.js"></script>
+<script src="markdown_highlighttool/languages/applescript.min.js"></script>
+<script src="markdown_highlighttool/languages/arcade.min.js"></script>
+<script src="markdown_highlighttool/languages/arduino.min.js"></script>
+<script src="markdown_highlighttool/languages/armasm.min.js"></script>
+<script src="markdown_highlighttool/languages/asciidoc.min.js"></script>
+<script src="markdown_highlighttool/languages/aspectj.min.js"></script>
+<script src="markdown_highlighttool/languages/autohotkey.min.js"></script>
+<script src="markdown_highlighttool/languages/autoit.min.js"></script>
+<script src="markdown_highlighttool/languages/avrasm.min.js"></script>
+<script src="markdown_highlighttool/languages/awk.min.js"></script>
+<script src="markdown_highlighttool/languages/axapta.min.js"></script>
+<script src="markdown_highlighttool/languages/bash.min.js"></script>
+<script src="markdown_highlighttool/languages/basic.min.js"></script>
+<script src="markdown_highlighttool/languages/bnf.min.js"></script>
+<script src="markdown_highlighttool/languages/brainfuck.min.js"></script>
+<script src="markdown_highlighttool/languages/cal.min.js"></script>
+<script src="markdown_highlighttool/languages/capnproto.min.js"></script>
+<script src="markdown_highlighttool/languages/ceylon.min.js"></script>
+<script src="markdown_highlighttool/languages/clean.min.js"></script>
+<script src="markdown_highlighttool/languages/clojure.min.js"></script>
+<script src="markdown_highlighttool/languages/clojure-repl.min.js"></script>
+<script src="markdown_highlighttool/languages/cmake.min.js"></script>
+<script src="markdown_highlighttool/languages/c.min.js"></script>
+<script src="markdown_highlighttool/languages/coffeescript.min.js"></script>
+<script src="markdown_highlighttool/languages/coq.min.js"></script>
+<script src="markdown_highlighttool/languages/cos.min.js"></script>
+<script src="markdown_highlighttool/languages/cpp.min.js"></script>
+<script src="markdown_highlighttool/languages/crmsh.min.js"></script>
+<script src="markdown_highlighttool/languages/crystal.min.js"></script>
+<script src="markdown_highlighttool/languages/csharp.min.js"></script>
+<script src="markdown_highlighttool/languages/csp.min.js"></script>
+<script src="markdown_highlighttool/languages/css.min.js"></script>
+<script src="markdown_highlighttool/languages/dart.min.js"></script>
+<script src="markdown_highlighttool/languages/delphi.min.js"></script>
+<script src="markdown_highlighttool/languages/diff.min.js"></script>
+<script src="markdown_highlighttool/languages/django.min.js"></script>
+<script src="markdown_highlighttool/languages/d.min.js"></script>
+<script src="markdown_highlighttool/languages/dns.min.js"></script>
+<script src="markdown_highlighttool/languages/dockerfile.min.js"></script>
+<script src="markdown_highlighttool/languages/dos.min.js"></script>
+<script src="markdown_highlighttool/languages/dsconfig.min.js"></script>
+<script src="markdown_highlighttool/languages/dts.min.js"></script>
+<script src="markdown_highlighttool/languages/dust.min.js"></script>
+<script src="markdown_highlighttool/languages/ebnf.min.js"></script>
+<script src="markdown_highlighttool/languages/elixir.min.js"></script>
+<script src="markdown_highlighttool/languages/elm.min.js"></script>
+<script src="markdown_highlighttool/languages/erb.min.js"></script>
+<script src="markdown_highlighttool/languages/erlang.min.js"></script>
+<script src="markdown_highlighttool/languages/erlang-repl.min.js"></script>
+<script src="markdown_highlighttool/languages/excel.min.js"></script>
+<script src="markdown_highlighttool/languages/fix.min.js"></script>
+<script src="markdown_highlighttool/languages/flix.min.js"></script>
+<script src="markdown_highlighttool/languages/fortran.min.js"></script>
+<script src="markdown_highlighttool/languages/fsharp.min.js"></script>
+<script src="markdown_highlighttool/languages/gams.min.js"></script>
+<script src="markdown_highlighttool/languages/gauss.min.js"></script>
+<script src="markdown_highlighttool/languages/gcode.min.js"></script>
+<script src="markdown_highlighttool/languages/gherkin.min.js"></script>
+<script src="markdown_highlighttool/languages/glsl.min.js"></script>
+<script src="markdown_highlighttool/languages/gml.min.js"></script>
+<script src="markdown_highlighttool/languages/golo.min.js"></script>
+<script src="markdown_highlighttool/languages/go.min.js"></script>
+<script src="markdown_highlighttool/languages/gradle.min.js"></script>
+<script src="markdown_highlighttool/languages/graphql.min.js"></script>
+<script src="markdown_highlighttool/languages/groovy.min.js"></script>
+<script src="markdown_highlighttool/languages/haml.min.js"></script>
+<script src="markdown_highlighttool/languages/handlebars.min.js"></script>
+<script src="markdown_highlighttool/languages/haskell.min.js"></script>
+<script src="markdown_highlighttool/languages/haxe.min.js"></script>
+<script src="markdown_highlighttool/languages/hsp.min.js"></script>
+<script src="markdown_highlighttool/languages/http.min.js"></script>
+<script src="markdown_highlighttool/languages/hy.min.js"></script>
+<script src="markdown_highlighttool/languages/inform7.min.js"></script>
+<script src="markdown_highlighttool/languages/ini.min.js"></script>
+<script src="markdown_highlighttool/languages/irpf90.min.js"></script>
+<script src="markdown_highlighttool/languages/isbl.min.js"></script>
+<script src="markdown_highlighttool/languages/java.min.js"></script>
+<script src="markdown_highlighttool/languages/javascript.min.js"></script>
+<script src="markdown_highlighttool/languages/jboss-cli.min.js"></script>
+<script src="markdown_highlighttool/languages/json.min.js"></script>
+<script src="markdown_highlighttool/languages/julia.min.js"></script>
+<script src="markdown_highlighttool/languages/julia-repl.min.js"></script>
+<script src="markdown_highlighttool/languages/kotlin.min.js"></script>
+<script src="markdown_highlighttool/languages/lasso.min.js"></script>
+<script src="markdown_highlighttool/languages/latex.min.js"></script>
+<script src="markdown_highlighttool/languages/ldif.min.js"></script>
+<script src="markdown_highlighttool/languages/leaf.min.js"></script>
+<script src="markdown_highlighttool/languages/less.min.js"></script>
+<script src="markdown_highlighttool/languages/lisp.min.js"></script>
+<script src="markdown_highlighttool/languages/livecodeserver.min.js"></script>
+<script src="markdown_highlighttool/languages/livescript.min.js"></script>
+<script src="markdown_highlighttool/languages/llvm.min.js"></script>
+<script src="markdown_highlighttool/languages/lsl.min.js"></script>
+<script src="markdown_highlighttool/languages/lua.min.js"></script>
+<script src="markdown_highlighttool/languages/makefile.min.js"></script>
+<script src="markdown_highlighttool/languages/markdown.min.js"></script>
+<script src="markdown_highlighttool/languages/mathematica.min.js"></script>
+<script src="markdown_highlighttool/languages/matlab.min.js"></script>
+<script src="markdown_highlighttool/languages/maxima.min.js"></script>
+<script src="markdown_highlighttool/languages/mel.min.js"></script>
+<script src="markdown_highlighttool/languages/mercury.min.js"></script>
+<script src="markdown_highlighttool/languages/mipsasm.min.js"></script>
+<script src="markdown_highlighttool/languages/mizar.min.js"></script>
+<script src="markdown_highlighttool/languages/mojolicious.min.js"></script>
+<script src="markdown_highlighttool/languages/monkey.min.js"></script>
+<script src="markdown_highlighttool/languages/moonscript.min.js"></script>
+<script src="markdown_highlighttool/languages/n1ql.min.js"></script>
+<script src="markdown_highlighttool/languages/nestedtext.min.js"></script>
+<script src="markdown_highlighttool/languages/nginx.min.js"></script>
+<script src="markdown_highlighttool/languages/nim.min.js"></script>
+<script src="markdown_highlighttool/languages/nix.min.js"></script>
+<script src="markdown_highlighttool/languages/node-repl.min.js"></script>
+<script src="markdown_highlighttool/languages/nsis.min.js"></script>
+<script src="markdown_highlighttool/languages/objectivec.min.js"></script>
+<script src="markdown_highlighttool/languages/ocaml.min.js"></script>
+<script src="markdown_highlighttool/languages/openscad.min.js"></script>
+<script src="markdown_highlighttool/languages/oxygene.min.js"></script>
+<script src="markdown_highlighttool/languages/parser3.min.js"></script>
+<script src="markdown_highlighttool/languages/perl.min.js"></script>
+<script src="markdown_highlighttool/languages/pf.min.js"></script>
+<script src="markdown_highlighttool/languages/pgsql.min.js"></script>
+<script src="markdown_highlighttool/languages/php.min.js"></script>
+<script src="markdown_highlighttool/languages/php-template.min.js"></script>
+<script src="markdown_highlighttool/languages/plaintext.min.js"></script>
+<script src="markdown_highlighttool/languages/pony.min.js"></script>
+<script src="markdown_highlighttool/languages/powershell.min.js"></script>
+<script src="markdown_highlighttool/languages/processing.min.js"></script>
+<script src="markdown_highlighttool/languages/profile.min.js"></script>
+<script src="markdown_highlighttool/languages/prolog.min.js"></script>
+<script src="markdown_highlighttool/languages/properties.min.js"></script>
+<script src="markdown_highlighttool/languages/protobuf.min.js"></script>
+<script src="markdown_highlighttool/languages/puppet.min.js"></script>
+<script src="markdown_highlighttool/languages/purebasic.min.js"></script>
+<script src="markdown_highlighttool/languages/python.min.js"></script>
+<script src="markdown_highlighttool/languages/python-repl.min.js"></script>
+<script src="markdown_highlighttool/languages/q.min.js"></script>
+<script src="markdown_highlighttool/languages/qml.min.js"></script>
+<script src="markdown_highlighttool/languages/reasonml.min.js"></script>
+<script src="markdown_highlighttool/languages/rib.min.js"></script>
+<script src="markdown_highlighttool/languages/r.min.js"></script>
+<script src="markdown_highlighttool/languages/roboconf.min.js"></script>
+<script src="markdown_highlighttool/languages/routeros.min.js"></script>
+<script src="markdown_highlighttool/languages/rsl.min.js"></script>
+<script src="markdown_highlighttool/languages/ruby.min.js"></script>
+<script src="markdown_highlighttool/languages/ruleslanguage.min.js"></script>
+<script src="markdown_highlighttool/languages/rust.min.js"></script>
+<script src="markdown_highlighttool/languages/sas.min.js"></script>
+<script src="markdown_highlighttool/languages/scala.min.js"></script>
+<script src="markdown_highlighttool/languages/scheme.min.js"></script>
+<script src="markdown_highlighttool/languages/scilab.min.js"></script>
+<script src="markdown_highlighttool/languages/scss.min.js"></script>
+<script src="markdown_highlighttool/languages/shell.min.js"></script>
+<script src="markdown_highlighttool/languages/smali.min.js"></script>
+<script src="markdown_highlighttool/languages/smalltalk.min.js"></script>
+<script src="markdown_highlighttool/languages/sml.min.js"></script>
+<script src="markdown_highlighttool/languages/sqf.min.js"></script>
+<script src="markdown_highlighttool/languages/sql.min.js"></script>
+<script src="markdown_highlighttool/languages/stan.min.js"></script>
+<script src="markdown_highlighttool/languages/stata.min.js"></script>
+<script src="markdown_highlighttool/languages/step21.min.js"></script>
+<script src="markdown_highlighttool/languages/stylus.min.js"></script>
+<script src="markdown_highlighttool/languages/subunit.min.js"></script>
+<script src="markdown_highlighttool/languages/swift.min.js"></script>
+<script src="markdown_highlighttool/languages/taggerscript.min.js"></script>
+<script src="markdown_highlighttool/languages/tap.min.js"></script>
+<script src="markdown_highlighttool/languages/tcl.min.js"></script>
+<script src="markdown_highlighttool/languages/thrift.min.js"></script>
+<script src="markdown_highlighttool/languages/tp.min.js"></script>
+<script src="markdown_highlighttool/languages/twig.min.js"></script>
+<script src="markdown_highlighttool/languages/typescript.min.js"></script>
+<script src="markdown_highlighttool/languages/vala.min.js"></script>
+<script src="markdown_highlighttool/languages/vbnet.min.js"></script>
+<script src="markdown_highlighttool/languages/vbscript-html.min.js"></script>
+<script src="markdown_highlighttool/languages/vbscript.min.js"></script>
+<script src="markdown_highlighttool/languages/verilog.min.js"></script>
+<script src="markdown_highlighttool/languages/vhdl.min.js"></script>
+<script src="markdown_highlighttool/languages/vim.min.js"></script>
+<script src="markdown_highlighttool/languages/wasm.min.js"></script>
+<script src="markdown_highlighttool/languages/wren.min.js"></script>
+<script src="markdown_highlighttool/languages/x86asm.min.js"></script>
+<script src="markdown_highlighttool/languages/xl.min.js"></script>
+<script src="markdown_highlighttool/languages/xml.min.js"></script>
+<script src="markdown_highlighttool/languages/xquery.min.js"></script>
+<script src="markdown_highlighttool/languages/yaml.min.js"></script>
+<script src="markdown_highlighttool/languages/zephir.min.js"></script>
+<script>hljs.highlightAll();</script>
+</html>
