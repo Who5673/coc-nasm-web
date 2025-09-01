@@ -1,0 +1,5 @@
+# Force the GitHub Linguist to cover the scripts in /docs
+docs/** linguist-detectable=true
+docs/** -linguist-documentation
+docs/** -linguist-vendored
+docs/** -linguist-generated
