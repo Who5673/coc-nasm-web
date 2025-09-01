@@ -1,5 +1,5 @@
 # Force the GitHub Linguist to cover the scripts in /docs
-/** linguist-detectable=true
+/* linguist-detectable=true
 
 docs/** linguist-detectable=true
 docs/** -linguist-documentation
