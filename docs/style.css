@@ -11,6 +11,9 @@
   font-weight: normal;
   font-size: normal;
 }
+#home_icon {
+  margin-left: 50vh;
+}
 html {
   scroll-behavior: smooth;
 }
