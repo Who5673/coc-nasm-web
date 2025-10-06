@@ -57,9 +57,7 @@ nav {
   border-radius: 1px;
   overflow-y: auto;
 }
-nav.show {
-  display: flex;
-}
+
 nav.light{
   border-color: #000000;
 }
@@ -97,8 +95,18 @@ main, footer {
   flex: 1;
   padding: 20px;
 }
+nav.show {
+  animation: menu_open 0.5s linear 0s forwards;
+  display: flex;
+}
+@keyframes menu_open {
+  100%{display: flex;}
+}
 main.show, footer.show {
-  margin-left: 350px;
+  animation: menu_open2 0.25s linear 0s forwards;
+}
+@keyframes menu_open2 {
+  100%{margin-left: 350px;}
 }
 #openmenu {
   position: fixed;
@@ -115,6 +123,7 @@ main.show, footer.show {
 }
 #openmenu.show {
   position: static;
+  display: none;
 }
 #testtitle {
   font-weight: 900;
