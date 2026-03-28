@@ -135,7 +135,7 @@ main.show, footer.show {
   text-align: center;
   box-shadow: -5px 5px 7px rgb(11, 236, 11);
   box-sizing: border-box;
-  width: 250px;
+  width: 300px;
 }
 #testtitle:hover{
   animation: testanm 0.25s ease-out 0s forwards;
@@ -377,6 +377,12 @@ main.show, footer.show {
 #parse_md {
   margin-left: 50vh;
   margin-bottom: 20px;
+}
+
+#license {
+  font-family: sans-serif;
+  font-size: large;
+  margin: 0%;
 }
 /* Animations and other things */
 @keyframes testanm {
