@@ -1,0 +1,645 @@
+/* Custom font from fonts.google.com */
+@font-face {
+  font-family: 'Michroma';
+  src: url('Michroma/Michroma-Regular.ttf');
+  font-weight: normal;
+  font-size: normal;
+}
+@font-face {
+  font-family: 'RobotoMono';
+  src: url('RobotoMono/RobotoMono-Regular.ttf');
+  font-weight: normal;
+  font-size: normal;
+}
+@font-face {
+  font-family: 'GoogleSans';
+  src: url('Google_Sans/GoogleSans.ttf');
+  font-weight: normal;
+  font-size: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+}
+
+section {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+}
+code {
+  font-size: larger;
+  font-family: monospace;
+}
+/* Background configuration */
+body {
+  background-color: hsl(150, 12%, 16%);
+  color: #ffffff;
+  font-family: sans-serif;
+}
+
+/* Menu */
+
+nav {
+  position: fixed;
+  width: 330px;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 20px;
+  border-right: 2px solid;
+  border-color: white;
+  border-radius: 1px;
+  overflow-y: auto;
+  background: linear-gradient(to right, rgb(115, 115, 224),rgb(0, 0, 255));
+  z-index: 5;
+  transform: translateX(-100%);
+}
+
+nav ul {
+  padding: 0;
+}
+nav ol {
+  padding: 0;
+}
+nav li {
+  list-style: none;
+  font-family: monospace;
+  font-size: 15px;
+  padding: 0;
+}
+nav li:nth-child(n){
+  margin-top: 10px;
+}
+nav a {
+  color: #ffffff;
+  font-weight: 900;
+  text-decoration: none;
+  font-family: GoogleSans;
+}
+nav a:hover {
+  text-decoration: underline;
+}
+nav a:active {
+  color: red;
+}
+nav #menuhomeicon {
+  display: flex;
+  justify-content: center;
+}
+nav ul div {
+  display: flex;
+  justify-content: center;
+}
+nav #closemenu {
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  font-size: 20px;
+}
+nav.show {
+  transform: translateX(0);
+  transition: all 0.6s ease-in-out;
+}
+nav.hide {
+  transform: translateX(-100%);
+  transition: all 0.6s ease-in-out;
+}
+
+/* General home */
+main, footer {
+  flex: 1;
+}
+main.show, footer.show {
+  filter: brightness(50%);
+}
+footer {
+  line-height: 50px;
+}
+.mainfooter {
+  margin-left: 8px;
+  margin-right: 8px;
+  line-height: 30px;
+}
+
+@keyframes menu_open {
+  100%{display: flex;}
+}
+
+#openmenu {
+  position: fixed;
+  top: 0;
+  left: 10px;
+  top: 10px;
+  background-color: hsl(0, 0%, 0%);
+  width: 35px;
+  height: 35px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: 1px solid hsl(0, 0%, 50%);
+}
+#openmenu:hover {
+  background-color: hsla(0, 0%, 60%, 98%);
+}
+#openmenu:active {
+  background-color: hsl(0, 0%, 20%);
+}
+#openmenu.show {
+  position: static;
+  display: none;
+}
+
+
+#introduction {
+  margin-left: 20px;
+}
+#testtitle {
+  font-weight: 900;
+  color: rgb(255, 165, 0);
+  font-family: 'Michroma';
+  text-align: left;
+  border: 2px solid rgb(11, 236, 11);
+  border-radius: 5px;
+  text-align: center;
+  box-shadow: -5px 5px 7px rgb(11, 236, 11);
+  width: 300px;
+}
+#testtitle:hover{
+  animation: testanm 0.25s ease-out 0s forwards;
+}
+
+#introtitle {
+  font-family: Arial;
+  font-size: 2.75rem;
+  color: tomato;
+}
+#introdescription {
+  font-size: 1.75rem;
+}
+#intro-container
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 400px;
+  width: 650px;
+}
+#intro-get 
+{
+  margin-top: 20px;
+  width: 200px;
+  height: 50px;
+  font-size: 25px;
+  border-radius: 10px;
+  border: 0;
+  cursor: pointer;
+  color: white;
+  font-weight: 700;
+
+  background: linear-gradient(to right, rgb(255, 0, 230), rgb(225, 0, 255), rgb(125, 2, 247),rgb(34, 0, 255));
+  box-shadow: 0 5px 0 rgb(0, 255, 238, 60%);
+}
+#intro-get:hover {
+  animation: push2 0.5s forwards, rainbow 1.25s ease-in-out 0s infinite, abcdef 0.6s ease-in-out 0s infinite;
+}
+
+#home_icon {
+  width: 300px;
+  height: 300px;
+  overflow: hidden;
+}
+#introuser {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: hsl(150, 88%, 50%);
+  height: 700px;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+  padding: 0 20px;
+}
+
+.coccode {
+  color: white
+}
+.thirdlinks {
+  text-decoration: none;
+  font-size: 20px;
+  color: yellow;
+}
+.thirdlinks:active
+{
+  color: rgb(95, 95, 42);
+}
+#updates {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 20px;
+}
+#upd_description {
+  border: 1px solid;
+  border-radius: 34px;
+  padding: 20px;
+  background: rgb(222, 10, 250);
+  box-shadow: -5px 5px 6px hsl(0, 56%, 80%);
+  width: 100%;
+  font-size: 1rem;
+  line-height: 35px;
+}
+#upd_description:hover {
+  scale: 1.01;
+}
+
+
+/* Hyperlink boxes */
+#goto_pages {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-areas: 
+  "box1 box2"
+  "box3 box4"
+  "box5 box5";
+  gap: 40px;
+}
+.box {
+  box-sizing: border-box;
+  box-shadow: -10px 10px 10px hsla(0, 0%, 100%, 98%);
+  text-align: center;
+  border-radius: 20px;
+  padding: 10px;
+  border: 3px solid;
+  width: 1fr;
+  background: linear-gradient(rgb(0, 140, 255), rgb(3, 250, 98));
+}
+.box:hover {
+  animation: pabi 0.5s ease-out 0s forwards;
+}
+.subbox {
+  color: rgba(255, 50, 0, 100%);
+  background: transparent;
+  box-shadow: 0px 0.5px 0.5px hsl(0, 0%, 80%);
+  padding: 7px;
+  border-radius: 10px;
+  font-family: 'RobotoMono';
+}
+.subbox:nth-child(2n){
+  text-align: left;
+}
+
+/* Getlink button */
+.getlinknow {
+  margin-top: 15px;
+  width: 100px;
+  background: transparent;
+  border: 2px solid;
+  border-color: blue;
+  border-radius: 8px;
+  color: rgb(255, 4, 255);
+}
+.getlinknow:hover {
+  background-color: yellow;
+  color: #000000;
+  cursor: pointer;
+}
+.getlinknow:active {
+  background-color: rgb(180, 180, 29);
+}
+.fake {
+  background-color: rgb(255, 165, 0);
+}
+
+/* Installation (Neovim) */
+.nviminstallationpassage {
+  font-family: sans-serif;
+  font-size: 20px;
+}
+.isalist {
+  padding: 20px;
+  text-align: left;
+  width: 500px;
+}
+.isalist li
+{
+  font-size: 15px;
+  list-style: none;
+}
+.path {
+  font-family: monospace;
+  font-size: 25px;
+}
+.nvimcodeinstallation {
+  background-color: #0d1117;
+  color: white;
+  padding: 10px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+.c {
+  font-family: sans-serif;
+}
+.c:active {
+  animation: push 0.01s ease-in 0s forwards;
+}
+.c2 {
+  cursor: pointer;
+  width: 100px;
+  border: 1px solid #000000;
+  height: 40px;
+  font-weight: 900;
+  border-radius: 5px;
+  padding: 5px;
+  display: flex;
+}
+.c2:hover {
+  background-color: hsl(0, 0%, 70%);
+}
+.c2:active {
+  color: #ffffff;
+  background-color: rgba(92, 201, 183, 0.192);
+}
+
+.codeblock, .language-cpp, .language-rust {
+  font-size: 20px;
+}
+
+/* Clipbox C-Rust */
+.clipcontainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.clipbox {
+  font-family: "RobotoMono";
+  border: 1px solid #000000;
+  text-align: center;
+  color: #ffffff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* C or Rust? */
+.c5 {
+  border: 1px solid #000000;
+  height: 40px;
+  font-weight: 900;
+  cursor: pointer;
+  width: 100px;
+}
+.c5:hover {
+  background-color: hsl(0, 0%, 70%);
+}
+.c5:active {
+  color: #ffffff;
+  background-color: rgba(92, 201, 183, 0.192);
+}
+.clipbox1 {
+  background-color: rgb(36, 109, 36)
+}
+.clipbox1.show {
+  background-color: rgb(54, 80, 54)
+}
+.clipbox2 {
+  background-color: rgb(38, 122, 155);
+}
+.clipbox2.show {
+  background-color: rgb(57, 107, 128);
+}
+.nvimcodeinstallationforCorRust {
+  background-color: #0d1117;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+.clipCorRustcontainer {
+  border: 1px solid rgba(255, 255, 255, 70%);
+  margin-bottom: 30px;
+}
+
+
+/* c4 is diffent from c3. c4 is used to make C and Rust clipboard using JS logic.*/
+.c4 {
+  font-weight: 900;
+  font-family: sans-serif;
+  color: hsl(0, 0%, 100%);
+  text-align: right;
+}
+
+/* Fake document */
+#faketitle {
+  font-family: sans-serif;
+  font-size: 40px;
+  color: yellow;
+}
+#faketitle.light {
+  color: black;
+}
+.fakedefault {
+  font-family: sans-serif;
+}
+.fakebenefit {
+  font-weight: 615;
+}
+.fake_a {
+  text-decoration: none;
+  color: blue;
+  font-family: sans-serif;
+}
+.attr {
+  color: blue;
+  text-decoration: none;
+}
+.dtermasm {
+  font-family: sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+#somesyntaxes {
+  list-style: none;
+}
+
+
+
+/* Hex converter */
+#hex_converter {
+  margin-top: 50px;
+  padding: 20px;
+}
+#hex_converter:nth-child(n) {
+  line-height: 30px;
+}
+#hexcon-title {
+  font-size: 2rem;
+}
+#input_thing {
+  height: 100px;
+  padding-left: 10px;
+  font-size: 1.5rem;
+}
+#output_thing {
+  border: 1px solid;
+  padding-left: 10px;
+  height: 100px;
+  font-size: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.io-hexcon {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+/* For phones */
+@media only screen and (max-width: 699px) {
+  nav {
+    min-width: 75%;
+    min-height: 100%;
+  }
+  #intro-container {
+    width: 100%;
+    height: 250px;
+    padding: 0;
+    margin: 0;
+  }
+  #introtitle {
+    text-align: center;
+    font-size: 30px;
+  }
+  #introdescription{
+    font-size: 1.25rem;
+  }
+  #intro-get
+  {
+    margin: 0;
+  }
+  #home_icon {
+    width: 100%;
+    margin-top: 10px;
+  }
+  #introuser {
+    display: block;
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+  .io-hexcon {
+  grid-template-columns: 1fr;
+  }
+  .mainfooter {
+    margin: 0;
+  }
+  .isalist
+  {
+    width: 100%;
+    display: block;
+  }
+}
+/* Markdown page */
+
+.md-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.md-inout-dt
+{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.md-dt
+{
+  text-align: center;
+  border: 0.5px solid #00ff00;
+  font-weight: 900;
+}
+#indt {
+  background-color: white;
+  color: black;
+}
+#outdt {
+  background-color: black;
+  color: yellow;
+}
+#md-body > *{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+}
+#md-input, #md-output
+{
+  height: 100vh;
+}
+#md-input
+{
+  background-color: transparent;
+  color: white;
+  font-size: 1.5rem;
+}
+#md-output {
+  border: 2px solid red;
+  padding-left: 8px;
+  font-size: 1.5rem;
+}
+#parse_md {
+  margin-left: 50vh;
+  margin-bottom: 20px;
+}
+
+#license {
+  font-family: sans-serif;
+  font-size: large;
+  margin: 0%;
+}
+/* Animations and other things */
+@keyframes testanm {
+  /*animation: name duration timing-function delay iteration-count direction fill-mode; */
+  100%{box-shadow: 0px 0px 0px;}
+}
+@keyframes Three_Dimentional_Spin {
+  100% {
+    transform: rotate3d(0, 1, 0, 360deg);
+  }
+}
+@keyframes pabi {
+  100% {
+    transform: rotate3d(1, 1, 0, 30deg);
+  }
+}
+@keyframes push {
+  100%{ box-shadow: 0px 0px 0px; }
+}
+@keyframes rainbow {
+    0%{color: red}
+    14%{color: orange}
+    29%{color: yellow}
+    43%{color: rgb(11, 236, 11)}
+    57%{color: rgb(0, 195, 255)}
+    72%{color: rgb(17, 14, 240)}
+    86%{color: rgb(242, 0, 255)}
+    100%{color: red}
+}
+@keyframes push2 {
+  100%{
+    border: 1px solid white;
+    scale: 0.98;
+    box-shadow: 0px 0px 0px;
+  }
+}
+@keyframes abcdef {
+  25% {background: linear-gradient(to right, rgb(34, 0, 255) ,rgb(255, 0, 230), rgb(225, 0, 255), rgb(125, 2, 247));}
+  50% {background: linear-gradient(to right, rgb(125, 2, 247), rgb(34, 0, 255) ,rgb(255, 0, 230), rgb(225, 0, 255));}
+  75% {background: linear-gradient(to right, rgb(225, 0, 255), rgb(125, 2, 247), rgb(34, 0, 255) ,rgb(255, 0, 230));}
+}

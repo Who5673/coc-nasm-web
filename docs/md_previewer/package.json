@@ -1,0 +1,16 @@
+{
+  "name": "md_previewer",
+  "version": "0.0.1",
+  "description": "Who5673's markdown previewer",
+  "main": "md_frontend.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "who5673",
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "marked": "latest"
+  }
+}

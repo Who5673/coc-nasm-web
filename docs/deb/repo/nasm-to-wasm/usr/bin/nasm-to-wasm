@@ -1,0 +1,704 @@
+#!/usr/bin/env python3
+
+# Copyright (c) 2025 who5673. All rights served.
+
+# The MIT License
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+from importlib.util import find_spec
+from itertools import chain
+module_name = "rich"
+if find_spec(module_name) is not None:
+    from rich.traceback import install as inst; inst()
+else:
+    print("""\x1b[1;38;2;0;227;252m💡 I suggest installing Rich library first before using this compiler to debug easier.
+\x1b[1;38;2;0;255;0m👉 Install rich library using: "sudo apt install python3-rich" or "pip install rich"\x1b[0m\x0a""")
+    pass
+from argparse import ArgumentParser
+from os import system as s
+from os import remove
+from ast import literal_eval
+from os.path import isfile
+from datetime import datetime
+from decimal import Decimal, ROUND_HALF_UP
+
+# Parsers for arguments
+parser = ArgumentParser(description="Compile NASM into WASM")
+parser1 = parser.add_mutually_exclusive_group(required=False)
+parser.add_argument('-i', '--input', type=str, help="Input a NASM file to compile")
+parser.add_argument('-o', '--output', type=str, help="Specify the output file after compiling")
+parser1.add_argument('-v', '--version', action='store_true', help='Show the version of coc-nasm and exit')
+args = parser.parse_args()
+
+global exported_functions
+exported_functions:list = list()
+# Registers
+# 64-bit registers
+reg64 = [
+    'rax', 'rbx', 'rcx', 'rdx',
+    'rsi', 'rdi', 'rsp', 'rbp',
+    'r8', 'r9', 'r10', 'r11',
+    'r12', 'r13', 'r14', 'r15'
+]
+# 32-bit registers
+reg32 = [
+    'eax', 'ebx', 'ecx', 'edx',
+    'esi', 'edi', 'esp', 'ebp',
+    'r8d', 'r9d', 'r10d', 'r11d',
+    'r12d', 'r13d', 'r14d', 'r15d'
+]
+# 16-bit registers
+reg16 = [
+    'ax', 'bx', 'cx', 'dx',
+    'si', 'di', 'sp', 'bp',
+    'r8w', 'r9w', 'r10w', 'r11w',
+    'r12w', 'r13w', 'r14w', 'r15w'
+]
+# 8-bit registers (high and low)
+reg8 = [
+    'al', 'ah', 'bl', 'bh',
+    'cl', 'ch', 'dl', 'dh',
+    'sil', 'dil', 'spl', 'bpl',
+    'r8b', 'r9b', 'r10b', 'r11b',
+    'r12b', 'r13b', 'r14b', 'r15b'
+]
+# Segment registers
+seg_regs = [
+    'cs', 'ds', 'ss', 'es',
+    'fs', 'gs'
+]
+# All registers
+reg = list(chain(reg64, reg32, reg16, reg8, seg_regs))
+
+# Safe int converter
+def safe_int(s):
+    s = s.strip()
+    if s.lstrip("-+").isdigit():
+        return int(s)
+    return s
+
+def compile_version() -> None:
+    print('0.3.14')
+
+# Exceptions
+class WrongFileTypeError(BaseException):
+    def __init__(self, m=None):
+        if m is None:
+            m = "The included filetype must be a Netwide Assembler (.nasm) or Assembly (.asm) file"
+        super().__init__(m)
+class NASMSyntaxError(BaseException):
+    def __init__(self, m=None):
+        if m is None:
+            m = "Syntax error in NASM detected!"
+        super().__init__(m)
+
+# Check file off if it is such file or directory, and it is a .nasm or .asm file
+def checkfile(file):
+    if ".nasm" not in file:
+        if ".asm" in file: 
+            pass
+        elif not isfile(file):
+            raise FileNotFoundError(f"{file}: No such file or directory")
+        else:
+            raise WrongFileTypeError
+    
+    if not isfile(file):
+        raise FileNotFoundError(f"{file}: No such file or directory")
+    
+    file2 = file
+    file = list(file)
+    for i in range(-1, -6, -1):
+        file.pop(-1)
+        if i == -4 and ".nasm" not in file2:
+            break
+    file = ''.join(file)
+
+# Check the output if it is a WebAssembly Binary file
+def checkoutputfile(file):
+    if ".wasm" not in file and ".wat" not in file:
+        raise WrongFileTypeError("Output filetype must be a WebAssembly Text file (.wat) or WebAssembly binary file (.wasm)")
+    else: pass
+
+# Check if WebAssembly Binary Toolkit is installed or not
+def wabt_is_installed() -> None:
+    x: bool = isfile("/usr/bin/wat2wasm")
+    y: bool = isfile("/usr/local/bin/wat2wasm")
+    if not x and not y:
+        option = input("""\x1b[1;37m👉 Attention: This script depends on WebAssembly Binary Toolkit (wabt).\x1b[0m
+It seems you have not installed that toolkit yet. Would you like to install it?
+(press y to continue or any key to refuse)\x0aYour answer: """).lower()
+        if (option == "y"):
+            s("sudo apt install wabt -y")
+            pass
+        else:
+            exit(1)
+    else:
+        pass
+
+# Mathematics Rounding
+def round_half_math(x:float) -> int:
+    return int(Decimal(x).to_integral_value(rounding=ROUND_HALF_UP))
+
+# Get the POSIX time
+def get_POSIX_time(time:tuple=()) -> int:
+    """Returns an exactly POSIX time of a specified date. By default, it returns the current one.
+Tuple of datetime order: (YYYY, MM, DD, HH, MM, SS)"""
+    if time != ():
+        # Create time object for the tuple
+        dt = datetime(time, tzinfo=None)
+        # Get the POSIX time
+        posix_time = round_half_math(dt.timestamp())
+    else:
+        # Get the current datetime
+        now = datetime.now()
+        posix_time = round_half_math(now.timestamp())
+    return posix_time
+
+# Main function for compiling NASM to WASM
+def wasm_compile(inputfile, outputfile:str, exportname:str) -> list:
+    def nasm_to_wat(nasm_lines:list):
+        # Global variables
+        global exported_functions
+
+        # Standard macros
+        standard_macros = {
+            "__?POSIX_TIME?__":get_POSIX_time(),
+        }
+
+        # Preprocessor dictionaries:
+        preprocessor_dict:dict = dict()
+        macro_prep_dict:dict = dict()
+
+        # Preprocessor variables:
+        in_macro:int = 0
+        macro_body:list = list()
+        macro_name:str
+        ended_macro:bool = True
+
+        # Runtime variables:
+        in_data:bool = False
+        next_offset = 1024
+        data_section = []
+        equ_macros = {}
+        data_labels = {}
+        text_section = []
+
+        # WebAssembly Text convert variables:
+        wat_lines = ['(module\n  (memory (export "memory") 1)']
+        func_name:str = ""
+        params = set()
+        locals_ = set()
+        body = []
+
+        for line_number, line in enumerate(nasm_lines, start=1):
+            def deal_with_result(src) -> None:
+                if src in preprocessor_dict:
+                    key = preprocessor_dict.get(f"{src}", "undefined")
+                    if key == "undefined":
+                        raise KeyError("Error: Is the macro exist to get?")
+                    elif key in standard_macros:
+                        use_standard_macro(key)
+                    key = safe_int(key)
+                    y: str = type(key)
+                    if (y == "<class 'str'>"):
+                        if len(key) == 1:
+                            key = hex(ord(key))
+                            pass
+                        else:
+                            raise SyntaxError("Error: Invalid type integer number! This is a string, not int")
+                    body.append(f'    i32.const {key}')
+                else:
+                    body.append(f'    i32.const {src}')
+            def print_error(message: str) -> None:
+                print(f"\x1b[1;38;2;255;165;0m❗ Error: \x1b[1;38;2;255;255;0m{message}\x1b[0m")
+            def print_fatal(message: str) -> None:
+                print(f"\x1b[1;31m❌ Fatal error: \x1b[1;38;2;255;255;0m{message}\x1b[0m")
+            def print_warning(message: str) -> None:
+                print(f"\x1b[1;33m⚠️ Warning: \x1b[1;32m{message}\x1b[0m")
+
+            def print_table_top():
+                print("\x20", end="")
+                for i in range(1, 100, 1):
+                    print("_", end="")
+
+                print("\x0a|")
+            def print_table_bottom():
+                print("|", end="")
+                for i in range(1, 100, 1):
+                    print("_", end="\0")
+                print()
+            def show_error(line: str, start: int, end: int) -> None:
+                print(f"| \x20{line_number}\x09\x1b[1;37m{line}\x1b[0m")                         # show the original line
+                print("|" + "\x20" + " " * start + "\x20\x09" + "^" * (end - start))  # underline with carets
+                print("|")
+            def myerror(msg:str, error=1) -> None:
+                if error == 1:
+                    print_error(msg)
+                elif error == 0:
+                    print_warning(msg)
+                else:
+                    print_fatal(msg)
+                print_table_top()
+                show_error(stripped, 0, len(stripped), )
+                print_table_bottom()
+            def use_standard_macro(macro:str) -> None:
+                macro = standard_macros[macro]
+
+            stripped = line.lower().split(";")[0].strip()
+
+            # Preprocessor conditions:
+            if not stripped and ended_macro:
+                continue
+            
+            if stripped.startswith(r'%define') and ended_macro:
+                try:
+                    single_line_macro:list = stripped.split(" ")
+                    if len(single_line_macro) != 3:
+                        raise SyntaxError("define preprocessor takes at most and at least 3 arguments.")
+                    if single_line_macro[2] in standard_macros:
+                        use_standard_macro(single_line_macro[2])
+                    single_macro, single_result = single_line_macro[1], single_line_macro[2]
+                    preprocessor_dict[f"{single_macro}"] = single_result
+                except SyntaxError as s:
+                    myerror(f"{s}")
+                    exit(1)
+                continue
+            
+            if stripped.startswith(r"%macro"):
+                if ended_macro:
+                    try:
+                        multi_line_macro:list = stripped.split(" ")
+                        if len(multi_line_macro) != 3:
+                            raise SyntaxError("%macro preprocessor takes at most and at least 3 arguments: %macro macroname numberofparameters. Example: %macro print 1")
+                        elif multi_line_macro[2] != "0":
+                            raise SyntaxWarning("I am sorry to you that even though NASM supports this preprocessor, I have not supported this script yet.")
+                        macro_name = multi_line_macro[1]
+                        in_macro = 1
+                        ended_macro = False
+                    except SyntaxError as s:
+                        myerror(f"{s}")
+                        exit(1)
+                    except SyntaxWarning as s:
+                        myerror(f"{s}", error=0)
+                        macro_name = multi_line_macro[1]
+                        in_macro = 1
+                        ended_macro = False
+                    continue
+
+                else:
+                    try:
+                        raise SyntaxError("Another %macro ought not to put inside %macro preprocessor")
+                    except SyntaxError as s:
+                        myerror(f"{s}")
+                        exit(1)
+
+            if in_macro == 1 and stripped != r"%endmacro":
+                try:
+                    if stripped == nasm_lines[-1]: 
+                        raise SyntaxError
+
+                    macro_body.append(stripped)
+
+                except SyntaxError as s:
+                    myerror(f"{s}")
+                    exit(1)
+                continue
+            
+            if stripped.startswith(r"%endmacro"):
+                try:
+                    if in_macro == 0:
+                        raise SyntaxError(f"Have you used %macro preprocessor before using this end one?")
+                    macro_descrip = "\n".join(macro_body)
+                    macro_prep_dict[f"{macro_name}"] = macro_descrip
+                    ended_macro = True
+                    in_macro = 0
+                    macro_body:list = list()
+                except SyntaxError as s:
+                    myerror(f"{s}")
+                    exit(1)
+                continue
+
+            if stripped.startswith(tuple(macro_prep_dict)):
+                macro_line = stripped.split(" ")
+                if len(macro_line) > 1:
+                    body.append("    ;; I will support macro with parameters later, but not for now.")
+                else:
+                    macro_descrip = macro_prep_dict[f"{macro_line[0]}"].split("\n")
+                    #print(macro_descrip)
+                    for i, j in enumerate(macro_descrip, start=1):
+                        nasm_lines.insert(line_number + i, f"{j}")
+                continue
+            
+            if stripped.startswith(r"%clear"):
+                preprocessor_dict = dict()
+                macro_prep_dict = dict()
+            
+            if stripped.startswith(r"%undef"):
+                try:
+                    text = stripped.split(" ")
+                    if len(text) != 2:
+                        raise SyntaxError(r"%undef preprocessor takes at least and at most 2 arguments")
+                    elif text[-1] not in preprocessor_dict and text[-1] not in macro_prep_dict:
+                        raise SyntaxError(f"{text[-1]} is not a defined macro to undefine")
+                    elif text[-1] in preprocessor_dict:
+                        preprocessor_dict.pop(text[-1])
+                    else:
+                        macro_prep_dict.pop(text[-1])
+                except SyntaxError as s:
+                    myerror(f"{s}")
+                    exit(1)
+                continue
+
+            # Runtime conditions:
+            if stripped.startswith("section .data") or stripped.startswith("segment .data"):
+                in_data = True
+                continue
+
+            elif stripped.startswith("section .text") or stripped.startswith("segment .text"):
+                in_data = False
+                continue
+
+            if in_data:
+                data_section.append(stripped)
+                for line in data_section:
+                    if not line or line.startswith(";"):
+                        continue
+                    # Deal with equ
+                    if "equ" in line:
+                        parts = line.split()
+                        equ_macros[parts[0]] = parts[2]
+                        continue
+                    # Example: msg db "Hello", 0
+                    if "db" in line or "dd" in line:
+                        label, rest = line.split(None, 1)
+                        label = label.rstrip(":")
+                        if "db" in rest:
+                            value = rest.split("db", 1)[1].strip()
+                            if value.startswith('"'):
+                                try:
+                                    s = literal_eval(value)
+                                    if isinstance(s, str):
+                                        b = s.encode("utf-8") + b"\x00"
+                                    else:
+                                        raise ValueError("Not a string")
+                                except Exception as e:
+                                    print("String parse failed:", e)
+                                    b = b""
+                            else:
+                                b = bytes([int(v.strip()) for v in value.split(",")])
+                        elif "dd" in rest:
+                            nums = [int(v.strip(",")) for v in rest.split("dd", 1)[1].split(",")]
+                            b = b''.join(int(n).to_bytes(4, 'little') for n in nums)
+                        elif "equ" in line and ("$ -" in line or "$-" in line):
+                            name, _, expr = line.partition(" equ")
+                            if "$ -" in line:
+                                base_label = expr.split("S -")[-1].strip()
+                            if "$-" in line:
+                                base_label = expr.split("S-")[-1].strip()
+                            base_offset = data_labels.get(base_label, {}).get("offset", 0)
+                            length = next_offset - base_offset
+                            equ_macros[name.strip()] = str(length)
+                            continue
+                        else:
+                            continue
+
+                        data_labels[label] = {
+                            "offset" : next_offset,
+                            "bytes" : b
+                        }
+                        next_offset += len(b)
+            else:
+                text_section.append(stripped)
+
+                for label, val in data_labels.items():
+                    data_bytes = val["bytes"].decode("latin1") # Keep the bytes
+                    wat_lines.append(f'  (data (i32.const {val["offset"]}) "{data_bytes}")')
+
+            if stripped.startswith("global"):
+                func_name = stripped.split()[1]
+                exported_functions.append(func_name)
+                continue
+
+            if stripped.endswith(":"):
+                label = stripped[:-1]
+                if label == func_name:
+                    func_signature = f'  (func ${label}'
+                else:
+                    body.append(f'  ;; Label ${label} (this is not entrypoint)')
+                continue
+
+            if stripped.startswith("mov"):
+                _, dst, src = stripped.split()
+                dst = dst.rstrip(',').lower()
+                src = src.lower()
+
+                if dst in reg64:
+                    locals_.add(dst)
+                if src in reg64 and src not in locals_:
+                    params.add(src)
+
+                if src in reg64:
+                    body.append(f'    local.get ${src}')
+                else:
+                    deal_with_result(src)
+
+                body.append(f'    local.set ${dst}')
+                continue
+
+            if stripped.startswith("add"):
+                _, dst, src = stripped.split()
+                dst = dst.rstrip(',').lower()
+                src = src.lower()
+
+                if dst in reg64:
+                    locals_.add(dst)
+
+                if src in reg64 and src not in locals_:
+                    params.add(src)
+                body.append(f'    local.get ${dst}')
+
+                if src in reg64:
+                    body.append(f'    local.get ${src}')
+
+                else:
+                    deal_with_result(src)
+
+                body.append(f'    i32.add')
+                body.append(f'    local.set ${dst}')
+                continue
+
+            if stripped.startswith("sub"):
+                _, dst, src = stripped.split()
+                dst = dst.rstrip(',').lower()
+                src = src.lower()
+
+                if dst in reg64:
+                    locals_.add(dst)
+                if src in reg64 and src not in locals_:
+                    params.add(src)
+
+                body.append(f'    local.get ${dst}')
+                if src in reg64:
+                    body.append(f'    local.get ${src}')
+                else:
+                    deal_with_result(src)
+                body.append(f'    i32.sub')
+                body.append(f'    local.set ${dst}')
+                continue
+
+            if stripped.startswith("mul"):
+                _, dst, src = stripped.split()
+                dst = dst.rstrip(',').lower()
+                src = src.lower()
+
+                if dst in reg64:
+                    locals_.add(dst)
+                if src in reg64 and src not in locals_:
+                    params.add(src)
+
+                body.append(f'    local.get ${dst}')
+                if src in reg64:
+                    body.append(f'    local.get ${src}')
+                else:
+                    deal_with_result(src)
+                body.append(f'    i32.mul')
+                body.append(f'    local.set ${dst}')
+                continue
+
+            if stripped.startswith("div"):
+                _, dst, src = stripped.split()
+                dst = dst.rstrip(',').lower()
+                src = src.lower()
+
+                if dst in reg64:
+                    locals_.add(dst)
+                if src in reg64 and src not in locals_:
+                    params.add(src)
+
+                body.append(f'    local.get ${dst}')
+                if src in reg64:
+                    body.append(f'    local.get ${src}')
+                else:
+                    deal_with_result(src)
+                body.append(f'    i32.div_u')
+                body.append(f'    local.set ${dst}')
+                continue
+
+            if stripped.startswith("idiv"):
+                _, dst, src = stripped.split()
+                dst = dst.rstrip(',').lower()
+                src = src.lower()
+
+                if dst in reg64:
+                    locals_.add(dst)
+                if src in reg64 and src not in locals_:
+                    params.add(src)
+
+                body.append(f'    local.get ${dst}')
+                if src in reg64:
+                    body.append(f'    local.get ${src}')
+                else:
+                    deal_with_result(src)
+                body.append(f'    i32.div_s')
+                body.append(f'    local.set ${dst}')
+                continue
+
+            if stripped.startswith("lea"):
+                _, dst, src = line.split()
+                src_label = src.strip("[]").lower()
+                addr = data_labels.get(src_label, {}).get("offset", 0)
+                body.append(f'    i32.const {addr}')
+                body.append(f'    local.set ${dst}')
+                continue
+            
+            # chưa hỗ trợ
+            body.append(f'    ;; {stripped}')
+
+        # Tạo chữ ký hàm đầy đủ
+        if func_name:
+            for p in sorted(params):
+                func_signature += f' (param ${p} i32)'
+            if 'rax' not in params and 'rax' in locals_:
+                # Start signing
+
+                if func_name in exported_functions:
+                    func_signature_parts = [f'  (func ${func_name} (export "{func_name}")']
+                else:
+                    func_signature_parts = [f'  (func ${func_name}']
+                # Add param
+                for p in sorted(params):
+                    func_signature_parts.append(f'(param ${p} i32)')
+                # Add result
+                func_signature_parts.append('(result i32)')
+                # Add local
+                for l in sorted(locals_):
+                    if l not in params:
+                        func_signature_parts.append(f'(local ${l} i32)')
+                func_signature = ''.join(func_signature_parts)
+
+            wat_lines.append(func_signature)
+            wat_lines.extend(body)
+            wat_lines.append(f'    local.get $rax')
+            wat_lines.append(f'    return')
+            wat_lines.append(f'  )')
+
+        wat_lines.append(')')
+        return wat_lines
+    try:
+        checkfile(inputfile)
+        checkoutputfile(outputfile)
+        if '.' in exportname:
+            raise SyntaxError("Output function does not have character '.'")
+        if exportname.isdigit() == True:
+            raise SyntaxError("Output function must not be numbers")
+        outputname = list(outputfile)
+        for i in range(-1, -6, -1):
+            outputname.pop(-1)
+            if i == -3 and "." in outputname[-1]: 
+                outputname.pop(-1)
+                break
+        outputname = ''.join(outputname)
+        
+
+        with open(inputfile) as f:
+            nasm_lines = f.readlines()
+            wat_lines = nasm_to_wat(nasm_lines)
+            global exported_functions
+            newoutputfile = f"{outputname}.wat"
+            JSoutput = f"{outputname}.js"
+            with open(f"{newoutputfile}", "w") as g:
+                g.write("\n".join(wat_lines))
+
+        if ".wat" not in outputfile:
+            s(f'wat2wasm {newoutputfile} -o {outputfile}')
+            remove(newoutputfile)
+        exportscript = rf"""
+export async function {exportname}() {{
+    // Load WebAssembly normal functions:
+    const response = await fetch("{outputfile}");
+    const bytes = await response.arrayBuffer();
+    const result = await WebAssembly.instantiate(bytes);
+    return result.instance;
+}}
+
+export default async function nasmToWasmInit() {{
+  const instance = await {exportname}();
+
+  return instance;
+}};
+
+/* How to call the function:
+
+await nasmInit();
+
+// After that, call the function normally. For example, sum(a, b);
+
+const x = sum(15, 20);
+
+*/
+""" # exportscript to export WebAssembly file from JavaScript.
+        exportscript:list = exportscript.split("\x0a")
+        for i, function in enumerate(exported_functions, start=0):
+            exportscript.insert(11 + i, f"  globalThis.{function} = instance.exports.{function}")
+        exportscript = "\n".join(exportscript)
+        # Take down the exportscript:
+        with open(JSoutput, "w") as fd:
+            fd.write(exportscript)
+
+    except Exception as e:
+        # raise Exception
+        exit(1)
+
+# Deal with arguments
+if args.version:
+    wabt_is_installed()
+    compile_version()
+    exit(0)
+if args.input and args.output:
+    wabt_is_installed()
+    wasm_compile(f"{args.input}" ,f"{args.output}", "loadWasm")
+elif args.input:
+    wabt_is_installed()
+    file = args.input
+    if ".nasm" not in file:
+        if ".asm" in file: pass
+        elif not isfile(file):
+            raise FileNotFoundError(f"{file}: No such file or directory")
+        else:
+            raise WrongFileTypeError
+
+    if not isfile(file):
+        raise FileNotFoundError(f"{file}: No such file or directory")
+
+    file2 = file
+    file = list(file)
+    for i in range(-1, -6, -1):
+        file.pop(-1)
+        if (".nasm" not in file2) and (i == -4):
+            break
+    file = ''.join(file)
+    if not args.export_name:
+        wasm_compile(f"{file2}", f"{file}.wasm", "loadWasm")
+    elif args.export_name:
+        wasm_compile(f"{file2}", f"{file}.wasm", f"{args.export_name}")
+else:
+    wabt_is_installed()
+    print("\x1b[1;38;2;255;255;255mnasm-to-wasm: \x1b[1;38;2;255;0;0mfatal error: \x1b[1;33mno input files inside -i argument (also no -i argument too)")
+    print("\x1b[1;38;2;8;118;252mHint: \x1b[1;38;2;0;255;0mTry to run \x22nasm-to-wasm -h\x22 for instructions\x1b[0m")
+    exit(1)

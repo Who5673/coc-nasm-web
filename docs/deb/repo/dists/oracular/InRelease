@@ -1,0 +1,35 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Codename: oracular
+Date: Fri, 29 Aug 2025 15:41:10 UTC
+Architectures: amd64
+Components: main
+MD5Sum:
+ b6f95be1445efe762a285c66ae8c5eac 1133 main/binary-amd64/Packages
+ 040ebee92f5621d10f0381c0f6fe895d 643 main/binary-amd64/Packages.gz
+ 063287201b2354699acfe229a752201d 36 main/binary-amd64/Release
+SHA1:
+ 155e2fec72b05439a981b6a94c2c59bbf42bfb00 1133 main/binary-amd64/Packages
+ 506cc5676fa98697c660d5303316ff8c7c80b2d4 643 main/binary-amd64/Packages.gz
+ f9082edea14092794f38390390e06abf8a922f7d 36 main/binary-amd64/Release
+SHA256:
+ 380657ca1b33dfdf1981e4bae0601cf4d323ed0ec7c46d813e877dea3c708a3f 1133 main/binary-amd64/Packages
+ 85e50bc38fd8a4dd30009a8c86dd18b6bf037926b27d33eb7004b22b34f81d4b 643 main/binary-amd64/Packages.gz
+ f4aafa353a338baedf9e98523c13d7ffeda979ec3cf745f9fad977dd770595c8 36 main/binary-amd64/Release
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE00BhuevjXiMtmN8dTi10UqWy1LMFAmixyhcACgkQTi10UqWy
+1LOZFA//SWUn49qx4lIgqUObLgDSZXSuK/rWo6/hSw8vABjNrPRBuL1xI2RVgeZ5
+yBs8PbMdFBY1yBGNsIGRQRM+cBIKqYfVeiJ4+RirAiLmie14N4LRBFbTFyTXoZNo
+4e2H8swxDhncEP9QFzxMXprhEBAMz0a3iPdJDKCp503PGsd6TJ5JSw5zFoSikFZF
+20xHPxdZ1QrPMWULpt4uN8ATt209TWRAK+nugUKU3Z2z0uJx6El/5vde6NeNnHy7
+VsmzP1rdffMTfAoLdydFvdKHdsc+g5kvFnKx2gNFvZo3rLZYLUzJTw7vbLkJxAAW
+97R0OT6L6jTyRq+Y1Wi1om+YO8Dq1fBNhdvJF7r+zAQjuG8CY1M1pyNRr+JOmhY9
+J8cZWpvCvaVXTMwykRG2TAV0nWEiLw3RK0H7EP6vRb8MmmG3RCN0KEGUuW2SfOTP
+f89c4TCdFVs3ii4+Qz3wLed0M729dcTOhZdhCzN9BTHKjYahqhrmgpMIKhkRgrYj
+qdbaGCFv3DT24bbXw/3d24D7IfQTrCn0UgN8PRsGJNUWQBem50rTMG++TJkj5CpL
+RLxW7+vOXOhF0bllMAWTqPt61Dp9n0+00UoUTvj1hAPZUGfmCFZSfHwpQ13yhvrI
+F3jwg2+mcrGOYuwnGqhzvQxSC/+yT7QqL/Hyzilw69TdWF/UAfg=
+=v09A
+-----END PGP SIGNATURE-----

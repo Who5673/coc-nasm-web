@@ -1,0 +1,420 @@
+<!--
+Copyright (c) 2025 who5673. All rights served.
+
+The MIT License
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <!--link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='bridge.js') }}"></script>
+    <script src="{{ url_for('static', filename='frontend.js') }}"></script-->
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="coc-nasm-favison.svg" sizes="48x48">
+
+    <!--Highlighters-->
+    <link rel="stylesheet" href="highlighters/luahighlight/styles/github-dark.min.css">
+    <link rel="stylesheet" href="highlighters/x86asmhighlighters/styles/github-dark.min.css">
+
+    <!--WebAssembly emcc-->
+
+    <!--link rel="shortcut icon" href="favicon.ico" type="image/x-icon"-->
+    <title>Fake document page</title>
+  </head>
+  <body id="bodie">
+    <header>
+      <div id="menubox">
+        <nav>
+          <ul>
+            <li id="menuhomeicon"><a href="index.html" title="Home"><img src="coc-nasm-favison.svg" /></a></li>
+            <li><a href="installation_for_coc.html">Installation (CoC)</a></li>
+            <li><a href="installation_for_nvim.html">Installation (nvim plugins)</a></li>
+            <li><a href="snippets.html">Snippets and completions</a></li>
+            <li><a href="see_also.html">See also</a></li>
+            <br><br>
+            <li><h1><span style="color: rgba(0, 255, 0, 98%);">Pseudo document contents</span></h1></li>
+            <li><h3><span style="color: rgba(255, 165, 0, 98%);">NASM Introduction</span></h3></li>
+            <li><a href="#asm_def">1. Definitions related to NASM</a></li>
+            <li><a href="#estab">2. NASM Establishment</a></li>
+            <li><a href="#first_nasm_pj">3. Your first NASM script</a></li>
+            <li><a href="#disnasm">4. Disassemble a RAW binary file</a></li>
+            <li><h3><span style="color: rgba(255, 165, 0, 98%);">Basic skills about Netwide Assembler for starters</span></h3></li>
+            <li><a href="#get_started_with_nasm">1. Basic Information</a></li>
+            <div><button id="closemenu"></button></div>
+          </ul>
+        </nav>
+    </div>
+    </header>
+    <main class="mainfooter">
+      <img id="openmenu" width="25" height="25" src="not_all_icons/menu.svg">
+      <section id="titles">
+        <h1 id="faketitle">Pseudo document</h1>
+        <br>
+        <p style="font-family: Michroma; font-size: 20px;">The real document is at:<br></p>
+        <a title="NASM document" target="_blank" href="https://nasm.us/doc" 
+        style="text-decoration: none; color: cyan; font-size: 1.25rem;" 
+        title="Netwide Assembler main website">
+          ➡️ https://nasm.us/doc/nasmdoc0.html
+        </a>
+      </section>
+      <section>
+        <h2 class="fakedefault" id="asm_def">The definitions of Assembly language, Assembler and Netwide Assembler</h2>
+        <dl>
+          <dt class="dtermasm">🤔 What is "assembly"?</dt>
+          <dd class="fakedefault">
+            Assembly is a set of such many native languages that is used to take down the script so that you can
+            control the hardware things in the computer like Central Processing Unit, Remote Access Memory, storage, registers 
+            and a lot more about things in a computer.
+          </dd><br>
+
+          <dt class="dtermasm">🤔 How about "assembler" and "disassembler"?</dt>
+          <dd class="fakedefault">
+            An assembler is a <b>low-level compiler</b> that is used to take down the script in order to compile it into machine code directly.
+            Therefore, the computer can understand it and execute the script by itself.
+
+            <br><br>
+
+            On the other hand, a disassembler is a compiler which disassemble (compile machine code description into assembly)
+            a file. 
+
+            <br><br>
+
+            <b>Please note that the computer cannot understand any languages with the exception of only two numbers: 0 and 1</b><br><br>
+            Some standout Assemblers for instance:<br><br>
+            <ul id="somesyntaxes">
+              <li><span style="color: rgb(255, 81, 0); font-weight: 900; font-size: 1.25rem;">AT&T Syntax</span>: GNU Assembler (GAS), Clang/Low-level Virtual Machine's built-in Assembler...;</li>
+              <li><span style="color: rgb(255, 81, 0); font-weight: 900; font-size: 1.25rem;">Intel syntax</span>: Microsoft Assembler (MASM), Flat Assembler (FASM),...</li>
+            </ul>
+          </dd><br>
+        <ul>
+          <li class="fakedefault">
+            <b>Netwide Assembler</b> is an Assembler that use Intel Syntax for taking down the script. It has some features like:
+            <ul>
+              <br>
+              <li class="fakebenefit">Can run on multiple platfroms 📂;</li><br>
+              <li class="fakebenefit">Compile directly into machine code; 💻</li><br>
+              <li class="fakebenefit">Super FAST 🚀;</li><br>
+              <li class="fakebenefit">Run natively in the local computer, a good language for programming drivers, bootloaders, and...<i>WebAssembly?</i> (Seriously, I am learning how to build a compiler in order to compile NASM into WASM, even though it has not done yet);</li><br>
+              <li class="fakebenefit">👉 It is a standalone Assembler for Newbie to learn, despite its high difficulty;</li><br>
+            </ul>
+          </li><br>
+          <li class="fakedefault">Fun fact: Netwide Assembler is also a Kali Tool. You can check it <a class="fake_a" href="https://www.kali.org/tools/nasm">here</a></li><br>
+        </ul>
+        <p class="fakedefault" style="font-size: 23px; color: rgba(255, 0, 0, 100%);"><b>⚠️ NOTE: It is recommended to learn how to program C language before programming this one,
+          as I might use C syntax in order to perform the Netwide Assembler command for everyone to understand.
+        </b></p>
+      </section>
+
+      <!--Set up Netwide Assembler compiler-->
+      <section id="setup">
+        <h2 class="fakedefault" id="estab">Establishment for Netwide Assembler language</h1>
+        <p style="font-style: italic;" class="fakedefault">Due to the high difficulty of installing this thing on Windows and MacOS, I will tell you how to do it on those platform later</p>
+        <h3 class="fakedefault">Install Netwide Assembler compiler:</h3>
+        <h4 class="fakedefault">On Linux, Windows Subsystem for Linux or <code>msys2</code>:</h4>
+        <h5 class="fakedefault">For Ubuntu, Debian, Kali, Mint,...(Debian-based):</h5>
+        <p class="fakedefault">Update <code>apt</code>, then install <code>nasm</code> compiler:</p>
+      </section>
+
+      <section class="nvimcodeinstallation">
+        <div class="c">
+          <p class="c2"><img src="clipboard.svg" alt="" class="copy-btn"> Copy</p>
+        </div>
+        <pre><code class="codeblock">
+sudo apt update && sudo apt install nasm</code></pre>
+      </section>
+
+
+      <h5 class="fakedefault">For MSYS2, Arch Linux or Linux distro that uses pacman-package-manager (Arch-based):</h5>
+      <p class="fakedefault">Update <code>pacman</code>, then install <code>nasm</code> compiler:</p>
+      <section class="nvimcodeinstallation">
+        <div class="c">
+          <p class="c2"><img src="clipboard.svg" alt="" class="copy-btn"> Copy</p>
+        </div>
+        <pre><code class="codeblock">
+sudo pacman -Syu && sudo pacman --sync nasm</code></pre>
+      </section>
+
+       <h5 class="fakedefault">For Red Hat Linux or the Linux distro that uses <code>yum</code> package manager (RPM-based):</h5>
+      <p class="fakedefault">Update <code>yum</code>, then install <code>nasm</code> compiler:</p>
+      <section class="nvimcodeinstallation">
+        <div class="c">
+          <p class="c2"><img src="clipboard.svg" alt="" class="copy-btn"> Copy</p>
+        </div>
+        <pre><code class="codeblock">
+sudo yum -y update && sudo yum install nasm</code></pre>
+      </section>     
+
+      <p class="fakedefault">Check off whether NASM is downloaded:</p>
+      <section class="nvimcodeinstallation">
+        <div class="c">
+          <p class="c2"><img src="clipboard.svg" alt="" class="copy-btn"> Copy</p>
+        </div>
+        <pre><code class="codeblock">
+nasm --version    #     It should output "NASM version &lt;version>"
+ndisasm -v        #  -- It should output "NDISASM version &lt;version>"</code></pre>
+      </section> 
+
+      <!--Setup IDE-->
+      <h3 class="fakedefault">Set up a new Intergrated Develop Environment in order to take down Netwide Assembler script easier</h3>
+      <p class="fakedefault">Please see my contents about <a href="installation_for_vscode.html">Visual Studio Code</a>, <a href="installation_for_coc.html">CoC</a> and <a href="installation_for_nvim.html">Neovim</a></p>
+
+      <!--Create your very first NASM program-->
+      <h2 class="fakedefault" id="first_nasm_pj">Create your first Netwide Assembler source code</h2>
+
+      <p class="nviminstallationpassage" id="thentype">We will use Neovim for example to open a file. However, you can also open it using Vim or VS Code:</p>
+      <section class="nvimcodeinstallation">
+        <div class="c">
+          <p class="c2"><img src="clipboard.svg" alt="" class="copy-btn"> Copy</p>
+        </div>
+        <pre><code class="codeblock">
+nvim main.nasm
+</code></pre>
+      </section>
+
+      <p class="nviminstallationpassage" id="thentype">Then type: (This step <b>needs <code>who5673-nasm</code> or <code>coc-nasm</code></b>)</p>
+      <section class="nvimcodeinstallation">
+        <div class="c">
+          <p class="c2"><img src="clipboard.svg" alt="" class="copy-btn"> Copy</p>
+        </div>
+        <pre><code class="codeblock">
+printHello
+</code></pre>
+      </section>
+
+      <p class="nviminstallationpassage">
+        or <code>ph, pH,...</code>anything that relates to snippet <code>printHello</code>.</p>
+      <p class="nviminstallationpassage">
+        <code>nvim-cmp</code> will appear the snippet <code>printHello</code> for you.<br>
+        It should output this script after choosing that snippet:
+      </p>
+
+
+      <section class="nvimcodeinstallation">
+        <div class="c">
+          <p class="c2"><img src="clipboard.svg" alt="" class="copy-btn"> Copy</p>
+        </div>
+        <pre><code class="codeblock">
+%macro exit 1
+  mov rax, 60
+  mov rdi, %1
+  syscall
+%endmacro
+
+%macro getstr 2
+  mov rax, 1
+  mov rdi, 1
+  mov rsi, %1
+  mov rdx, %2
+  syscall
+%endmacro
+
+section .data
+  example db 0x1b, "[1;38;2;255;165;0m", "Hello world", 0x1b, "[0m", 0xA
+  length equ $-example
+
+section .text
+  global _start
+
+_start:
+  getstr example, length
+  exit 0
+</code></pre>
+      </section>
+      <p class="nviminstallationpassage">Then use <code>nasm</code> to compile your Netwide Assembler file:</p>
+      <section class="nvimcodeinstallation">
+        <div class="c">
+          <p class="c2"><img src="clipboard.svg" alt="" class="copy-btn"> Copy</p>
+        </div>
+        <pre><code class="codeblock">
+nasm -f elf64 main.nasm -o main.o    # Compile NASM file into an object file using specified format
+ld main.o -o main   # Link the object file to the binary, then make a binary file
+</code></pre>
+      </section>
+      <p class="nviminstallationpassage"><b>Attention:</b> You need to choose right format type in order to make the binary work.</p>
+      <p class="nviminstallationpassage">According to <code>nasm -hf</code> instructions, we have some format like this:</p>
+      <ul class="nviminstallationpassage isalist">
+        <li class="nviminstallationpassage"><b><code>win32 (legacy alias: win)</code></b>: Windows 32-bit</li>
+        <li class="nviminstallationpassage"><b><code>win64</code></b>: Windows 64-bit</li>
+        <li class="nviminstallationpassage"><b><code>macho32 (legacy alias: macho)</code></b>: Mach-O i386 MacOS X and variants (32-bit)</li>
+        <li class="nviminstallationpassage"><b><code>macho64</code></b>: Mach-O x86_64 MacOS X and variants (64-bit)</li>
+        <li class="nviminstallationpassage"><b><code>elf32 (legacy alias: elf)</code></b>: x86 Linux distros (32-bit)</li>
+        <li class="nviminstallationpassage"><b><code>elf64</code></b>: x86-64 Linux distros (64-bit)</li>
+        <li class="nviminstallationpassage"><b><code>bin</code></b>: flat <b>RAW</b> binary file.<br>⚠️ You should not use over 16-bit Netwide Assembler syntax for this type as BIOS real-mode <b>cannot load greater than or equal to 32-bit registers.</b></li>
+      </ul>
+      
+
+      <h2 class="fakedefault" id="disnasm">Disassemble a RAW binary file (.bin, .hex) using <code>ndisasm</code></h2>
+      <p class="fakedefault">Create a raw binary file. For instance: (<b>ATTENTION: THIS IS THE COMMAND FOR x86-64 PROCESSOR MODE</b>)</p>
+      <section class="nvimcodeinstallation">
+        <div class="c">
+          <p class="c2"><img src="clipboard.svg" alt="" class="copy-btn"> Copy</p>
+        </div>
+        <pre><code class="codeblock">
+echo -ne '\x48\xb8\x01\x00\x00\x00\x00\x00\x00\x00\x48\xbf\x01\x00\x00\x00\x00\x00\x00\x00\x48\xbe\x00\x10\x60\x00\x00\x00\x00\x00\x48\xba\x0c\x00\x00\x00\x00\x00\x00\x00\x0f\x05\x48\xb8\x3c\x00\x00\x00\x00\x00\x00\x00\x48\x31\xff\x0f\x05' > main.bin
+</code></pre>
+      </section>
+
+      <p class="fakedefault">Disassemble a <b>RAW</b> binary file (not real binary files like <code>rm, cp, ls,...</code>):</p>
+      <section class="nvimcodeinstallation">
+        <div class="c">
+          <p class="c2"><img src="clipboard.svg" alt="" class="copy-btn"> Copy</p>
+        </div>
+        <pre><code class="codeblock">ndisasm -b 64 main.bin    # You can use -b 16, 32, 64 if you want to use other preprocessors</code></pre>
+      </section>
+
+      <p class="fakedefault" id="go_back">If you use 64-bit preprocessor, it should output those texts like this (can be different from different processor modes).</p>
+
+      <p class="c3">ndisasm's Disassembly result</p>
+      <section class="nvimcodeinstallation">
+        <div class="c">
+          <p class="c2"><img src="clipboard.svg" alt="" class="copy-btn"> Copy</p>
+        </div>
+        <pre><code class="codeblock">
+00000000  48B8010000000000  mov rax,0x1
+         -0000
+0000000A  48BF010000000000  mov rdi,0x1
+         -0000
+00000014  48BE001060000000  mov rsi,0x601000
+         -0000
+0000001E  48BA0C0000000000  mov rdx,0xc
+         -0000
+00000028  0F05              syscall
+0000002A  48B83C0000000000  mov rax,0x3c
+         -0000
+00000034  4831FF            xor rdi,rdi
+00000037  0F05              syscall
+</code></pre>
+      </section>
+
+      <h2 id="get_started_with_nasm">Get started with Netwide Assembler</h2>
+      <p>
+        Not like mid-level and high-level programming languages, NASM is a low-level one and it is much harder to find
+        documents for learning it. Moreover, before programming this language, you need to know some skills about basic
+        things to deal with the CPU and compiler.<br><br>
+        For more information about the <code>nasm</code> compiler, please <a href="https://nasm.us/doc/nasmdoc2.html#section-2.1" class="attr">go to the real document page</a>.
+      </p>
+      <b class="fakedefault">NOTE AGAIN: I will assume you that you have known how to program C language. Therefore, you need to learn how to take down C script first.<br>
+      However, don't worry if you have learnt many languages with the exeption of C. I also have an <mark>alternative</mark> one. This is the example clipboard that I will use:</b><br><br>
+
+      <!--Example basic clipboard-->
+      <div class="clipCorRustcontainer">
+        <div class="clipcontainer" id="languageTabs">
+          <div class="clipbox clipbox1" id="exampleClip" data-lang="cpp">C</div>
+          <div class="clipbox clipbox2" id="exampleRust" data-lang="rust">Rust</div>
+        </div>
+        <section class="nvimcodeinstallationforCorRust">
+          <div class="c">
+            <p class="c5"><img src="clipboard.svg" alt="" class="copy-btn"> Copy</p>
+          </div>
+          <pre><code class="language-cpp" id="testme">
+  int main(void) {
+  return 0;
+  }
+          </code></pre>
+        </section>
+      </div>
+
+      <h3 class="fakedefault">1. Hexdecimal number and address</h3>
+      <p class="fakedefault">Hexdecimal is really important to deal with the data and initialize a value into things like:</p>
+      <ul class="fakedefault">
+        <li><b>Register</b>: Things in the CPU that can be writen or overwritten a value like hexdecimal integers in order to make an interrupt like you want.</li>
+        <section class="nvimcodeinstallation">
+          <div class="c">
+            <p class="c2"><img src="clipboard.svg" alt="" class="copy-btn"> Copy</p>
+          </div>
+          <pre><code class="codeblock">; I will tell you how to use the `mov` command later
+mov ax, 0x5307    ; (16-bit) APM Basic Input/Output System (BIOS) function: Set power state
+mov bx, 0x0001    ; (16-bit) Device ID: All devices
+mov cx, 0x0003    ; (16-bit) Power State: Off
+int 0x15          ; (16-bit) APM Interrupt</code>
+      </section>
+        <li><b>Memory address</b>: Used as an address to save an array of ASCII characters. This is the only method that helps you print strings.<br><br>
+          Memory syntax example in NASM with <code>default abs</code>:
+          <ul>
+            <li><b><code>[0x601000]</code></b> :absolute;</li>
+            <li><b><code>[rel msg]</code></b>: relative label example address named msg;</li>
+            <li><b><code>[msg]</code></b>: Label memory address that is defined</li>
+            <li><b>NOTE:</b> Some registers like <code>rsi</code> does not need square brackets to make it be an address. For instance:</li>
+            <section class="nvimcodeinstallation">
+              <div class="c">
+                <p class="c2"><img src="clipboard.svg" alt="" class="copy-btn"> Copy</p>
+              </div>
+              <pre><code class="codeblock">; I will tell you how to use the `mov`, `section .data` and `db` commands later
+mov rsi, msg
+
+section .data
+  msg db "Hello world", 0xa, 0x0</code>
+            </section>
+          </ul>
+        </li>
+        <li><b>Immediate</b>: An array of ASCII characters that is saved into a label which is an alias of something like integer value and memory address.</li>
+        <section class="nvimcodeinstallation">
+          <div class="c">
+            <p class="c2"><img src="clipboard.svg" alt="" class="copy-btn"> Copy</p>
+          </div>
+          <pre><code class="codeblock">msg db "Example string", 0xa, 0x0    ; db: Define byte a character or an array of characters, each character takes 1 byte (8-bit)
+len equ $-msg                        ; Calculates the length of the array by subtracting current address by msg label offset
+                                     ; equ: Define a constant</code>
+        </section>
+      </ul>
+      
+      <div id="hex_converter">
+
+        <h3 class="fakedefault" id="hexcon-title">Integer to Hexdecimal</h3>
+        <br>
+        <p class="fakedefault">Take down an integer:</p>
+        <!--Input only number-->
+        <div class="io-hexcon">
+          <input type="number" class="fakedefault" placeholder="Integer" id="input_thing" title="Max length: 21 in order to avoid spamming"
+          oninput="if (this.value.length > 21) this.value = this.value.slice(0, 21);">
+          <div class="fakedefault" placeholder="Hexdecimal" id="output_thing"></div>
+        </div>
+        <p class="fakedefault">Digits taken down: <span id="inputlen"></span>/21</p>
+
+      </div>
+
+
+
+      <!--Frontends-->
+      <script type="module" src="frontend.js"></script>
+
+      <!--WebAssembly Binaries from WebAssembly Text and Netwide Assembler-->
+      <script type="module" src="frontend_signed_div.js"></script>
+
+      <!--JS highlighters-->
+      <script src="highlighters/luahighlight/highlight.min.js"></script>
+      <script src="highlighters/bashhighlight/languages/bash.min.js"></script>
+      <script src="highlighters/x86asmhighlighters/languages/x86asm.min.js"></script>
+      <script>hljs.highlightAll();</script>
+    </main>
+    <footer class="mainfooter">
+      <section>
+        <hr>
+        <p style="font-family: sans-serif;">Copyright &copy; who5673. All rights served.</p>
+        <h1 style="font-family: sans-serif;">LICENSE</h1>
+        <a style="font-weight: 400; font-family: Arial, Helvetica, sans-serif;" href="../LICENSE">MIT</a>
+      </section>
+    </footer>
+  </body>
+</html>

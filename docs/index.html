@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="This is who5673's coc-nasm-website">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="coc-nasm-favison.svg" sizes="48x48">
+  <script src="bridge.js"></script>
+  <!--link rel="shortcut icon" href="favicon.ico" type="image/x-icon"-->
+  <title>Home</title>
+</head>
+<div id="navigation-bar">
+</div>
+
+<body id="bodie">
+  <header>
+    <nav>
+      <ul>
+        <li id="menuhomeicon"><a href="index.html" title="Home"><img src="coc-nasm-favison.svg"></a></li>
+        <li><a href="installation_for_coc.html">Installation (CoC)</a></li>
+        <li><a href="installation_for_nvim.html">Installation (Neovim plugins)</a></li>
+        <li><a href="snippets.html">Snippets and completions</a></li>
+        <li><a href="see_also.html">See also</a></li>
+        <div class="btn-container"><button id="closemenu"></button></div>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <img id="openmenu" src="not_all_icons/menu.svg" title="Menu">
+    
+    
+    <section id="introuser">
+      <div id="intro-container">
+        <h1 id="introtitle">Who5673's web for <span style="color: yellow;">plugins</span></h1>
+        <p id="introdescription">
+          Provide various snippets and completions in NASM language,
+          and taking down NASM code is going to be more time-efficient.
+        </p>
+        <button id="intro-get" onclick="window.location.href = 'index.html#updates';">GET >></button>
+      </div>
+      <img id="home_icon" title="who5673's icon" src="coc-nasm-favison.svg">
+    </section>
+
+    <section id="introduction">
+      <h1 id="testtitle">Homepage</h1>
+      <script type="module" src="frontend.js"></script>
+    </section>
+
+    <br><br><br>
+
+    <h2 style="font-family: Arial; text-align: center; color: rgb(0, 255, 255);" id="lookforpage">Look for our pages</h2>
+    <br>
+    <div id="goto_pages">
+      <div class="box" id="box1" style="grid-area: box1;">
+        <h3 style="font-family: Arial; text-align: left; margin-left: 30px;">Installation for
+          <code>coc-nasm</code>
+        </h3>
+        <div class="subbox">
+          A strong plugin for
+          <code>coc.nvim</code>
+          that helps Netwide Assebler language using snippets and completions. 
+        </div>
+        <a href="installation_for_coc.html"><button class="getlinknow" id="getlinknow1">Go</button></a>
+      </div>
+      <div class="box" id="box2" style="grid-area: box2;">
+        <h3 style="font-family: Arial; text-align: left; margin-left: 30px;">Installation for
+          <code>who5673-nasm</code>
+        </h3>
+        <div class="subbox">
+          A strong plugin for NASM in Neovim.
+        </div>
+        <a href="installation_for_nvim.html"><button class="getlinknow" id="getlinknow2">Go</button></a>
+      </div>
+      <div class="box" id="box3" style="grid-area: box3;">
+        <h3 style="font-family: Arial; text-align: left; margin-left: 30px;">Snippets and completions</h3>
+        <div class="subbox">
+          This provides some information about snippets and completions in 
+          <code>coc-nasm</code> and <code>who5673-nasm</code>.
+        </div>
+        <a href="snippets.html"><button class="getlinknow" id="getlinknow4">Go</button></a>
+      </div>
+      <div class="box" id="box4" style="grid-area: box4;">
+        <h3 style="font-family: Arial; text-align: left; margin-left: 30px;">See also</h3>
+        <div class="subbox">
+          Look for our sister projects.
+        </div>
+        <a href="see_also.html"><button class="getlinknow" id="getlinknow5">Go</button></a>
+      </div>
+    </div>
+      <div class="box" id="box5" style="grid-area: box5;">
+        <h3 style="font-family: Arial; text-align: left; margin-left: 30px;">Who5673's
+          <mark class="fake">PSEUDO</mark>
+          document for NASM
+        </h3>
+        <div class="subbox">
+          Our
+          <mark class="fake">PSEUDO</mark>
+          document for helping you to learn Netwide Assembler 
+          language basically. At first, you will learn that thing like 
+          high-level languages. However, in the future, we need to teach 
+          you more about the hardware, like Central Processing Unit, 
+          Remote Access Memory, Registers and much more things about 
+          this low-level one.
+        </div>
+        <a href="fake_document.html"><button class="getlinknow" id="getlinknow6">Go</button></a>
+      </div>
+      <br><br><br><br><br>
+
+
+    <!--Check Update-->
+
+      <section id="updates">
+        <p style="font-family: sans-serif; font-size: 25px; font-weight: 500; color: blue;">➡️ Please check and install our latest version:</p>
+        <section id="upd_description">
+          <p style="font-family: Arial;"><b><code class="coccode">coc-nasm</code> GitHub link:</b></p>
+          <a href="https://github.com/Who5673/coc-nasm" class="thirdlinks" title="GitHub link to coc-nasm">👉 https://github.com/Who5673/coc-nasm</a>
+          <p style="font-family: Arial;" title="npmjs link to coc-nasm"><b><code class="coccode">coc-nasm</code> NPMJS link:</b></p>
+          <a href="https://npmjs.com/package/coc-nasm" class="thirdlinks">👉 https://npmjs.com/package/coc-nasm</a></p>
+          <p style="font-family: Arial;" title="GitHub link to who5673-nasm"><b><code class="coccode">who5673-nasm</code> GitHub link:</b></p>
+          <a href="https://github.com/Who5673/coc-nasm" class="thirdlinks">👉 https://github.com/Who5673/who5673-nasm</a>
+        </section>
+      </section>
+  </main>
+  <footer>
+    <section>
+      <hr>
+      <p style="font-family: sans-serif;">Copyright &copy; who5673. All rights served.</p>
+
+      <h2 id="license">LICENSE</h2>
+      <a style="font-weight: 400; font-family: Arial, Helvetica, sans-serif;" href="../LICENSE">MIT</a>
+    </section>
+
+
+  </footer>
+  <script type="module" src="frontend_sum.js"></script>
+</body>
+
+</html>
