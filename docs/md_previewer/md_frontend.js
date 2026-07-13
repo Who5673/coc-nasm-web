@@ -1,5 +1,9 @@
 import { marked } from "./node_modules/marked/lib/marked.esm.js";
-import init, { returnformat } from "/docs/rust-wasm/my_wasm_project.js";
+
+function returnformat(str)
+{
+  return str
+}
 
 function get_element_id(id)
 {
