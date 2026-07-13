@@ -10,7 +10,6 @@ function get_element_id(id)
   return document.getElementById(id);
 }
 
-await init();
 // JS Clipboard
 let cpclipbd = document.querySelectorAll(".c2");
 cpclipbd.forEach((btn) => {
